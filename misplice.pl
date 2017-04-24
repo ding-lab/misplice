@@ -71,7 +71,7 @@ my $lsf_file_dir = $HOME1."/LSF_DIR_SPLICECREATOR";
 
 ### USER can define them ###  
 
-my $script_dir="/gscuser/scao/gc2524/dinglab/splice/splicecreator";
+my $script_dir="/gscuser/scao/gc2524/dinglab/splice/git/misplice";
 my $fmaf="/gscuser/rjayasin/projects/new_WG/Splice_project/dat/MAF/tcga_filtered_ucsc_rc.MAFFINAL.NEW";
 my $rcbam="/gscuser/scao/gc2524/dinglab/splice/splicecreator/resource/RNA_bampaths_021417_chr.txt";
 
