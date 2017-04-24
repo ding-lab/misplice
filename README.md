@@ -1,6 +1,6 @@
-# misplice #
+# misplice pipeline #
 
-This script will detect mutation-induced splice events from cancer patients.
+The pipeline will detect mutation-induced splice events from cancer patients.
 
 Usage: perl misplice.pl <run_folder> <step_number>
 
@@ -14,7 +14,7 @@ Usage: perl misplice.pl <run_folder> <step_number>
 
 [3] Generate control maf
 
-[4] calculate # of supporting reads for control samples
+[4] Calculate # of supporting reads for control samples
 
 [5] Run expression filtering step
         
