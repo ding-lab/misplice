@@ -108,7 +108,7 @@ if($step_number==0)
      &bsub_maf_split(1);
     }elsif ($step_number == 2)
     {
-     &bsub_job_array_ns();
+     &bsub_job_array_ns(1);
     }elsif ($step_number == 3)
     {
      &bsub_control(1);
