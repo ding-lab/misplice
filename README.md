@@ -4,7 +4,7 @@ This script will detect mutation-induced splice events from cancer patients.
 
 Usage: perl misplice.pl <run_folder> <step_number>
 
-<run_folder> = full path of the folder holding maf file for all mutations and file for the sample list
+<run_folder> = full path of the folder holding maf file for all mutations (currently named as spliceinator.splice.score) and file for the sample list (currently named as Samples).
 
 <step_number> run this pipeline step by step. (running the whole pipeline if step number is 0)
 
