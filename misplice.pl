@@ -1,6 +1,6 @@
 ######### Song Cao###########
 ## pipeline for discovering splice creating events ##
-#   splicecreator.pl #
+#   misplice.pl #
 ### updated date: 04/24/2017 ###
 
 #!/usr/bin/perl
