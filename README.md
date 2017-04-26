@@ -2,7 +2,7 @@
 
 The pipeline will detect mutation-induced splice events from cancer patients.
 
-Usage: perl misplice.pl <run_folder> <step_number>
+Usage: perl MiSplice.pl <run_folder> <step_number>
 
 <run_folder> = full path of the folder holding maf file for all mutations (currently named as spliceinator.splice.score) and file for the sample list (currently named as Samples).
 
