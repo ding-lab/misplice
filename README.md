@@ -1,6 +1,6 @@
-# misplice pipeline #
+# MiSplice pipeline #
 
-The pipeline will detect mutation-induced splice events from cancer patients.
+Pipeline for discovering mutation-induced splice creating events from RNA-Seq
 
 Usage: perl MiSplice.pl <run_folder> <step_number>
 

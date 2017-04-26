@@ -1,7 +1,8 @@
 ######### Song Cao###########
-## pipeline for discovering splice creating events ##
-#   misplice.pl #
+## Pipeline for discovering mutation-induced splice creating events from RNA-Seq ##
+#   MiSplice.pl #
 ### updated date: 04/24/2017 ###
+### 04/26/2017 ####
 
 #!/usr/bin/perl
 use strict;
@@ -32,7 +33,7 @@ $red     	[1] Split maf
 			[2] Run discovery for splice creating events
 
 $gray 		[3] Generate control maf
-			[4] calculate # of supporting reads for control samples
+			[4] Calculate # of supporting reads for control samples
 
 $green 		[5] Generate table for # of supporting reads in case and control 
 		
@@ -56,26 +57,26 @@ my $HOME = $ENV{HOME};
 my $working_name= (split(/\//,$run_dir))[-2];
 my $HOME1="/gscmnt/gc2524/dinglab";
 #store job files here
-if (! -d $HOME1."/tmpsplicecreator") {
-    `mkdir $HOME1"/tmpsplicecreator"`;
+if (! -d $HOME1."/misplice") {
+    `mkdir $HOME1"/misplice"`;
 }
-my $job_files_dir = $HOME1."/tmpsplicecreator";
+my $job_files_dir = $HOME1."/misplice";
 #store SGE output and error files here
-if (! -d $HOME1."/LSF_DIR_SPLICECREATOR") {
-    `mkdir $HOME1"/LSF_DIR_SPLICECREATOR"`;
+if (! -d $HOME1."/LSF_DIR_MISPLICE") {
+    `mkdir $HOME1"/LSF_DIR_MISPLICE"`;
 }
 
 my $file_number_of_spliting = 200;
 
-my $lsf_file_dir = $HOME1."/LSF_DIR_SPLICECREATOR";
+my $lsf_file_dir = $HOME1."/LSF_DIR_MISPLICE";
 
 ### USER can define them ###  
 
 my $script_dir="/gscuser/scao/gc2524/dinglab/splice/git/misplice";
 my $fmaf="/gscuser/rjayasin/projects/new_WG/Splice_project/dat/MAF/tcga_filtered_ucsc_rc.MAFFINAL.NEW";
-my $rcbam="/gscuser/scao/gc2524/dinglab/splice/splicecreator/resource/RNA_bampaths_021417_chr.txt";
+my $rcbam=$script_dir."/resource/RNA_bampaths_021417_chr.txt";
 
-######
+#############
 
 #my $run_script_path = `dirname $0`;
 
