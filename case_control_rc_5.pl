@@ -3,7 +3,7 @@ use warnings;
 
 my $usage =<<USAGE;
  Usage: $0 <prefix> <largest_file_#>
-  Example: perl Control_Control_RC.pl prefix suffix tot_number
+  Example: perl case_control_rc_5.pl prefix suffix tot_number
 
 USAGE
     die $usage unless @ARGV==3;
