@@ -73,7 +73,8 @@ my $lsf_file_dir = $HOME1."/LSF_DIR_MISPLICE";
 ### USER can define them ###  
 
 my $script_dir="/gscuser/scao/gc2524/dinglab/splice/git/misplice";
-my $fmaf="/gscuser/rjayasin/projects/new_WG/Splice_project/dat/MAF/tcga_filtered_ucsc_rc.MAFFINAL.NEW";
+my $fmaf=$run_dir."/spliceinator.splice.score";
+#/gscuser/rjayasin/projects/new_WG/Splice_project/dat/MAF/tcga_filtered_ucsc_rc.MAFFINAL.NEW";
 my $rcbam=$script_dir."/resource/RNA_bampaths_021417_chr.txt";
 
 #############
@@ -227,7 +228,7 @@ sub bsub_control {
 	print CONTR "mkdir \${DCONTR}\n"; 
 	print CONTR "fi\n";
 	print CONTR "cat $run_dir/NS_CASE/*.filtered.5 > \${FJ}\n";
-	print CONTR "     ".$run_script_path."controls.pl $fmaf \${FJ} \${FOUT} \${FS}\n";
+	print CONTR "     ".$run_script_path."controls.v2.pl $fmaf \${FJ} \${FOUT} \${FS}\n";
 	close CONTR; 
 	$bsub_com = "bsub < $job_files_dir/$current_job_file\n";
     system ($bsub_com);
@@ -308,10 +309,11 @@ sub bsub_support_reads_table{
 	print EXPF "#BSUB -J $current_job_file\n";
     print EXPF "#BSUB -w \"$hold_job_file\"","\n";
     print EXPF "#BSUB -q ding-lab\n";
+	print EXPF "FS=".$run_dir."/Samples\n";
 	print EXPF "OUTF=".$run_dir."/case.control.distributionmethod\n";
 	print EXPF "OUTF_K=".$run_dir."/case.control.distributionmethod.withkey\n";
 	print EXPF "SUFFIX="."v2.filtered.5\n";
-	print EXPF "     ".$run_script_path."Case_Control_RC_5.pl $f_contr \${SUFFIX} $NUM_CONTR > \${OUTF}\n";
+	print EXPF "     ".$run_script_path."case_control_rc_5.pl \${FS} $f_contr \${SUFFIX} $NUM_CONTR > \${OUTF}\n";
 	print EXPF "cat \${OUTF} | awk \'{print substr(\$3,1,12)\"_\"\$5\"\t\"\$0}\' > \${OUTF_K}\n";
     close EXPF;
 
