@@ -4,7 +4,7 @@ Pipeline for discovering mutation-induced splice creating events from RNA-Seq
 
 Usage: perl MiSplice.pl <run_folder> <step_number>
 
-<run_folder> = full path of the folder holding maf file for all mutations (currently named as spliceinator.splice.score) and file for the sample list (currently named as Samples).
+<run_folder> = full path of the folder holding maf file for all mutations (misplice.input.maf) and file for the sample list (currently named as Samples).
 
 <step_number> run this pipeline step by step. (running the whole pipeline if step number is 0)
 
@@ -16,7 +16,7 @@ Usage: perl MiSplice.pl <run_folder> <step_number>
 
 [4] Calculate # of supporting reads for control samples
 
-[5] Run expression filtering step
+[5] Combine the read count for case and control samples
         
 [6] Calculate the splice score 
 

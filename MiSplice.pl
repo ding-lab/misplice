@@ -73,7 +73,7 @@ my $lsf_file_dir = $HOME1."/LSF_DIR_MISPLICE";
 ### USER can define them ###  
 
 my $script_dir="/gscuser/scao/gc2524/dinglab/splice/git/misplice";
-my $fmaf=$run_dir."/spliceinator.splice.score";
+my $fmaf=$run_dir."/misplice.input.maf";
 #/gscuser/rjayasin/projects/new_WG/Splice_project/dat/MAF/tcga_filtered_ucsc_rc.MAFFINAL.NEW";
 my $rcbam=$script_dir."/resource/RNA_bampaths_021417_chr.txt";
 
@@ -151,7 +151,7 @@ sub bsub_maf_split{
     print NS "#BSUB -o $lsf_file_dir","/","$current_job_file.out\n";
     print NS "#BSUB -e $lsf_file_dir","/","$current_job_file.err\n";
     print NS "#BSUB -J $current_job_file\n";
-	print NS "MAF=".$run_dir."/spliceinator.splice.score\n";
+	print NS "MAF=".$run_dir."/misplice.input.maf\n";
 	print NS "DIR_OUT=".$run_dir."/NS_CASE\n";
 	print NS "if [ ! -d \${DIR_OUT} ]\n";
     print NS "then\n";
@@ -188,8 +188,8 @@ sub bsub_job_array_ns {
 	print ANS "#BSUB -q ding-lab\n";
 	#####################
 	#print RM "#\$ -t 1-$file_number_of_RepeatMasker:1","\n";
-	print ANS "ANS_OUT=".$run_dir."/NS_CASE/spliceinator.splice.score.".'${LSB_JOBINDEX}'.".v2.filtered.5\n";
-	print ANS "ANS_IN=".$run_dir."/NS_CASE/spliceinator.splice.score.".'${LSB_JOBINDEX}'."\n";
+	print ANS "ANS_OUT=".$run_dir."/NS_CASE/misplice.input.maf.".'${LSB_JOBINDEX}'.".v2.filtered.5\n";
+	print ANS "ANS_IN=".$run_dir."/NS_CASE/misplice.input.maf.".'${LSB_JOBINDEX}'."\n";
 	print ANS "     ".$run_script_path."in_silico_ns.v4.pl \${ANS_IN} \${ANS_OUT}"."\n";
 	#print ANS "fi\n";
 	close ANS;
@@ -349,7 +349,7 @@ sub bsub_splice_score {
     print SSCORE "#BSUB -q ding-lab\n";
 	print SSCORE "DIRC=".$run_dir."/NS_CASE\n";
 	print SSCORE "INFO1=*.v2.filtered.5.detailed.alignment.5\n";
-	print SSCORE "INFO2=spliceinator.splice.score.*.v2.filtered.5\n";
+	print SSCORE "INFO2=misplice.input.maf.*.v2.filtered.5\n";
 	print SSCORE "     ".$run_script_path."prefilter.pl \${DIRC} \${INFO1}\n";
 	print SSCORE "     ".$run_script_path."splice_score_novel.pl $script_dir \${DIRC} \${INFO2}\n";
 	print SSCORE "mv \${DIRC}/novel.splice.scores $run_dir/novel.splice.scores\n";
@@ -465,7 +465,7 @@ sub bsub_rc_hla_filter{
 	print RCHLA "grep -v \'HLA-\' \${RCTC} > \${HLA}\n";
 	print RCHLA "awk -F\' \' \'{ tmp=(\$21/(\$14))*100; print \$1\"\\t\"tmp\"\\t\"\$0}\' \${HLA}|awk \'\$2>5\' > \${HLAVAF}\n"; 
 	print RCHLA "grep high_expression \${HLAVAF} > \${HLAVAFH}\n";
-	print RCHLA "cat $run_dir/NS_CASE/spliceinator.splice.score.*.filtered.5 |awk -F\'\\t\' \'{print substr(\$16,1,12)\"_\"\$5\"_\"\$6\"_\"\$11\"_\"\$13\"\\t\"\$0}' > \${MAFK}\n";	
+	print RCHLA "cat $run_dir/NS_CASE/misplice.input.maf.*.filtered.5 |awk -F\'\\t\' \'{print substr(\$16,1,12)\"_\"\$5\"_\"\$6\"_\"\$11\"_\"\$13\"\\t\"\$0}' > \${MAFK}\n";	
 	print RCHLA "     ".$run_script_path."combine.pl \${MAFK} \${HLAVAFH} 0 0 > \${FINAL}\n";
 	close RCHLA;
 	$bsub_com = "bsub < $job_files_dir/$current_job_file\n";
