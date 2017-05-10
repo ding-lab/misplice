@@ -271,6 +271,10 @@ foreach my $input (glob("$dir/$info"))
 		if($_=~m/^TCGA/)
 		{
 			my @l = split(/\t/,);
+
+			#### using length 20 as a cut-off ####
+
+	 		if(length($l[3])>=20 || length($l[4])>=20) { next; }
 			my $nxt = <DATA>;
 			my @m = split(/\t/, $nxt);
 			my @number=($m[5]=~m/(\d+)\w/g);
