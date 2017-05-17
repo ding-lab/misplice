@@ -27,7 +27,7 @@ $yellow     Usage: perl $0 <run_folder> <step_number> $normal
 
 <run_folder> = full path of the folder holding files for this sequence run
 
-<step_number> run this pipeline step by step. (running the whole pipeline if step number is 0)
+<step_number> run this pipeline step by step. (running steps [1-3] if step number is 11 and running steps [4-9] if step number is 12)
 
 $red     	[1] Split maf
 			[2] Run discovery for splice creating events
@@ -50,7 +50,7 @@ my ( $run_dir, $step_number ) = @ARGV;
 if ($run_dir =~/(.+)\/$/) {
     $run_dir = $1;
 }
-die $usage unless ($step_number >=0)&&(($step_number <= 10));
+die $usage unless (($step_number >=0)&&($step_number <= 9) || ($step_number==11) || ($step_number==12));
 my $email = "scao\@wustl\.edu";
 # everything else below should be automated
 my $HOME = $ENV{HOME};
@@ -93,12 +93,13 @@ my $sample_full_path = "";
 my $sample_name = "";
 $current_job_file="";
 
-if($step_number==0)
+if($step_number==11)
  	{
 	&bsub_maf_split(); 
-	&bsub_maf_split();
 	&bsub_job_array_ns();
 	&bsub_control();
+	} elsif($step_number==12)
+	{
 	&bsub_array_control();
 	&bsub_support_reads_table();
 	&bsub_splice_score();
@@ -190,8 +191,11 @@ sub bsub_job_array_ns {
 	#print RM "#\$ -t 1-$file_number_of_RepeatMasker:1","\n";
 	print ANS "ANS_OUT=".$run_dir."/NS_CASE/misplice.input.maf.".'${LSB_JOBINDEX}'.".v2.filtered.5\n";
 	print ANS "ANS_IN=".$run_dir."/NS_CASE/misplice.input.maf.".'${LSB_JOBINDEX}'."\n";
+	#print ANS 'if [ ! -f $ANS_OUT]',"\n";
+    print ANS "if [ ! -f \${ANS_OUT} ]\n";
+	print ANS "then\n";
 	print ANS "     ".$run_script_path."in_silico_ns.v4.pl \${ANS_IN} \${ANS_OUT}"."\n";
-	#print ANS "fi\n";
+	print ANS "fi\n";
 	close ANS;
     $bsub_com = "bsub < $job_files_dir/$current_job_file\n";
 	system ($bsub_com);
@@ -228,7 +232,7 @@ sub bsub_control {
 	print CONTR "mkdir \${DCONTR}\n"; 
 	print CONTR "fi\n";
 	print CONTR "cat $run_dir/NS_CASE/*.filtered.5 > \${FJ}\n";
-	print CONTR "     ".$run_script_path."controls.v2.pl $fmaf \${FJ} \${FOUT} \${FS}\n";
+	print CONTR "     ".$run_script_path."controls.pl $fmaf \${FJ} \${FOUT} \${FS}\n";
 	close CONTR; 
 	$bsub_com = "bsub < $job_files_dir/$current_job_file\n";
     system ($bsub_com);
@@ -244,6 +248,7 @@ sub bsub_array_control {
         $hold_job_file = $current_job_file;
     }
     $current_job_file = "j4_array_control.sh";
+
 	my $f_contr=$run_dir."/Controls/novel.junctions.filtered.controls";
 	my $cout=`wc -l $f_contr`;  
 	my @temp=split(" ",$cout);
@@ -274,8 +279,8 @@ sub bsub_array_control {
     print CONTRS "#BSUB -e $lsf_file_dir","/","$current_job_file.err\n";
     print CONTRS "#BSUB -J $current_job_file\[1-$NUM_CONTR\]\n";
     print CONTRS "#BSUB -w \"$hold_job_file\"","\n";
-    print CONTRS "#BSUB -q ding-lab\n";
-    print CONTRS "CONT_OUT=".$run_dir."/Controls/novel.junctions.filtered.controls.".'${LSB_JOBINDEX}'.".v2.filtered.5\n";
+    print CONTRS "#BSUB -q ding-lab\n"; 
+	print CONTRS "CONT_OUT=".$run_dir."/Controls/novel.junctions.filtered.controls.".'${LSB_JOBINDEX}'.".v2.filtered.5\n";
     print CONTRS "CONT_IN=".$run_dir."/Controls/novel.junctions.filtered.controls.".'${LSB_JOBINDEX}'."\n";    
     print CONTRS "     ".$run_script_path."in_silico_ns.control.v4.pl \${CONT_IN} \${CONT_OUT}\n";
     close CONTRS;
@@ -383,6 +388,7 @@ sub bsub_novels_split{
     print NS2 "#BSUB -o $lsf_file_dir","/","$current_job_file.out\n";
     print NS2 "#BSUB -e $lsf_file_dir","/","$current_job_file.err\n";
     print NS2 "#BSUB -J $current_job_file\n";
+    print NS2 "#BSUB -q ding-lab\n";
     print NS2 "MAF=".$run_dir."/novel.splice.scores\n";
     print NS2 "DIR_OUT=".$run_dir."/RC\n";
     print NS2 "if [ ! -d \${DIR_OUT} ]\n";
@@ -450,6 +456,7 @@ sub bsub_rc_hla_filter{
     print RCHLA "#BSUB -o $lsf_file_dir","/","$current_job_file.out\n";
     print RCHLA "#BSUB -e $lsf_file_dir","/","$current_job_file.err\n";
     print RCHLA "#BSUB -J $current_job_file\n";
+    print RCHLA "#BSUB -q ding-lab\n";
     print RCHLA "RCT=".$run_dir."/novel.splice.scores.rc\n";
 	print RCHLA "RCTK=".$run_dir."/novel.splice.scores.rc.key\n";
 	print RCHLA "RCTC=".$run_dir."/novel.splice.scores.rc.key.combined\n";
