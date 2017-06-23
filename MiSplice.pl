@@ -57,10 +57,10 @@ my $HOME = $ENV{HOME};
 my $working_name= (split(/\//,$run_dir))[-2];
 my $HOME1="/gscmnt/gc2524/dinglab";
 #store job files here
-if (! -d $HOME1."/misplice") {
-    `mkdir $HOME1"/misplice"`;
+if (! -d $HOME1."/tmp_misplice") {
+    `mkdir $HOME1"/tmp_misplice"`;
 }
-my $job_files_dir = $HOME1."/misplice";
+my $job_files_dir = $HOME1."/tmp_misplice";
 #store SGE output and error files here
 if (! -d $HOME1."/LSF_DIR_MISPLICE") {
     `mkdir $HOME1"/LSF_DIR_MISPLICE"`;
@@ -186,7 +186,7 @@ sub bsub_job_array_ns {
     print ANS "#BSUB -e $lsf_file_dir","/","$current_job_file.err\n";
     print ANS "#BSUB -J $current_job_file\[1-$file_number_of_spliting\]\n";
 	print ANS "#BSUB -w \"$hold_job_file\"","\n";	
-	print ANS "#BSUB -q ding-lab\n";
+	#print ANS "#BSUB -q ding-lab\n";
 	#####################
 	#print RM "#\$ -t 1-$file_number_of_RepeatMasker:1","\n";
 	print ANS "ANS_OUT=".$run_dir."/NS_CASE/misplice.input.maf.".'${LSB_JOBINDEX}'.".v2.filtered.5\n";
@@ -222,7 +222,7 @@ sub bsub_control {
     print CONTR "#BSUB -e $lsf_file_dir","/","$current_job_file.err\n";
     print CONTR "#BSUB -J $current_job_file\n";
 	print CONTR "#BSUB -w \"$hold_job_file\"","\n";
-    print CONTR "#BSUB -q ding-lab\n";
+    #print CONTR "#BSUB -q ding-lab\n";
 	print CONTR "DCONTR=".$run_dir."/Controls\n"; 
     print CONTR "FS=".$run_dir."/Samples\n";	
 	print CONTR "FJ=".$run_dir."/novel.junctions.filtered\n";
@@ -232,7 +232,7 @@ sub bsub_control {
 	print CONTR "mkdir \${DCONTR}\n"; 
 	print CONTR "fi\n";
 	print CONTR "cat $run_dir/NS_CASE/*.filtered.5 > \${FJ}\n";
-	print CONTR "     ".$run_script_path."controls.pl $fmaf \${FJ} \${FOUT} \${FS}\n";
+	print CONTR "     ".$run_script_path."controls.v2.pl $fmaf \${FJ} \${FOUT} \${FS}\n";
 	close CONTR; 
 	$bsub_com = "bsub < $job_files_dir/$current_job_file\n";
     system ($bsub_com);
@@ -279,7 +279,7 @@ sub bsub_array_control {
     print CONTRS "#BSUB -e $lsf_file_dir","/","$current_job_file.err\n";
     print CONTRS "#BSUB -J $current_job_file\[1-$NUM_CONTR\]\n";
     print CONTRS "#BSUB -w \"$hold_job_file\"","\n";
-    print CONTRS "#BSUB -q ding-lab\n"; 
+    #print CONTRS "#BSUB -q ding-lab\n"; 
 	print CONTRS "CONT_OUT=".$run_dir."/Controls/novel.junctions.filtered.controls.".'${LSB_JOBINDEX}'.".v2.filtered.5\n";
     print CONTRS "CONT_IN=".$run_dir."/Controls/novel.junctions.filtered.controls.".'${LSB_JOBINDEX}'."\n";    
     print CONTRS "     ".$run_script_path."in_silico_ns.control.v4.pl \${CONT_IN} \${CONT_OUT}\n";
@@ -313,7 +313,7 @@ sub bsub_support_reads_table{
     print EXPF "#BSUB -e $lsf_file_dir","/","$current_job_file.err\n";
 	print EXPF "#BSUB -J $current_job_file\n";
     print EXPF "#BSUB -w \"$hold_job_file\"","\n";
-    print EXPF "#BSUB -q ding-lab\n";
+   # print EXPF "#BSUB -q ding-lab\n";
 	print EXPF "FS=".$run_dir."/Samples\n";
 	print EXPF "OUTF=".$run_dir."/case.control.distributionmethod\n";
 	print EXPF "OUTF_K=".$run_dir."/case.control.distributionmethod.withkey\n";
@@ -351,7 +351,7 @@ sub bsub_splice_score {
     print SSCORE "#BSUB -e $lsf_file_dir","/","$current_job_file.err\n";
     print SSCORE "#BSUB -J $current_job_file\n";
     print SSCORE "#BSUB -w \"$hold_job_file\"","\n";
-    print SSCORE "#BSUB -q ding-lab\n";
+    #print SSCORE "#BSUB -q ding-lab\n";
 	print SSCORE "DIRC=".$run_dir."/NS_CASE\n";
 	print SSCORE "INFO1=*.v2.filtered.5.detailed.alignment.5\n";
 	print SSCORE "INFO2=misplice.input.maf.*.v2.filtered.5\n";
@@ -388,7 +388,7 @@ sub bsub_novels_split{
     print NS2 "#BSUB -o $lsf_file_dir","/","$current_job_file.out\n";
     print NS2 "#BSUB -e $lsf_file_dir","/","$current_job_file.err\n";
     print NS2 "#BSUB -J $current_job_file\n";
-    print NS2 "#BSUB -q ding-lab\n";
+    #print NS2 "#BSUB -q ding-lab\n";
     print NS2 "MAF=".$run_dir."/novel.splice.scores\n";
     print NS2 "DIR_OUT=".$run_dir."/RC\n";
     print NS2 "if [ ! -d \${DIR_OUT} ]\n";
@@ -423,7 +423,7 @@ sub bsub_job_array_rc {
     print RC "#BSUB -e $lsf_file_dir","/","$current_job_file.err\n";
     print RC "#BSUB -J $current_job_file\[1-$file_number_of_spliting\]\n";
     print RC "#BSUB -w \"$hold_job_file\"","\n";
-    print RC "#BSUB -q ding-lab\n";
+    #print RC "#BSUB -q ding-lab\n";
     #####################
     print RC "RC_OUT=".$run_dir."/RC/novel.splice.scores.".'${LSB_JOBINDEX}'.".rc\n";
     print RC "RC_IN=".$run_dir."/RC/novel.splice.scores.".'${LSB_JOBINDEX}'."\n";
@@ -456,7 +456,7 @@ sub bsub_rc_hla_filter{
     print RCHLA "#BSUB -o $lsf_file_dir","/","$current_job_file.out\n";
     print RCHLA "#BSUB -e $lsf_file_dir","/","$current_job_file.err\n";
     print RCHLA "#BSUB -J $current_job_file\n";
-    print RCHLA "#BSUB -q ding-lab\n";
+   # print RCHLA "#BSUB -q ding-lab\n";
     print RCHLA "RCT=".$run_dir."/novel.splice.scores.rc\n";
 	print RCHLA "RCTK=".$run_dir."/novel.splice.scores.rc.key\n";
 	print RCHLA "RCTC=".$run_dir."/novel.splice.scores.rc.key.combined\n";
