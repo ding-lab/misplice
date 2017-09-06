@@ -21,27 +21,31 @@ my $normal = "\e[0m";
 #usage information
 
 (my $usage = <<OUT) =~ s/\t+//g;
-This script will detect mutation-induced splice events from cancer patients. 
+
+Pipeline for discovering mutation-induced splice creating events from RNA-Seq
+
+Refer to github page for more info: https://github.com/ding-lab/misplice
+
 Pipeline version: $version
 $yellow     Usage: perl $0 <run_folder> <step_number> $normal
 
 <run_folder> = full path of the folder holding files for this sequence run
 
-<step_number> run this pipeline step by step. (running steps [1-3] if step number is 11 and running steps [4-9] if step number is 12)
+<step_number> run this pipeline step by step. (running the whole pipeline if step number is 0)
 
-$red     	[1] Split maf
-			[2] Run discovery for splice creating events
+$red	[1] Split maf
+	[2] Run discovery for splice creating events
 
-$gray 		[3] Generate control maf
-			[4] Calculate # of supporting reads for control samples
+$gray	[3] Generate control maf
+	[4] Calculate # of supporting reads for control samples
 
-$green 		[5] Generate table for # of supporting reads in case and control 
+$green	[5] Generate table for # of supporting reads in case and control 
 		
-$purple 	[6] Calculate the splice score 
+$purple	[6] Calculate the splice score 
 
-$cyan 		[7] Split novel sites for bam readcounts 
-			[8] Do bam readcounts
-			[9] Run rc, hla and expression filtering
+$cyan		[7] Split novel sites for bam readcounts 
+	[8] Do bam readcounts
+	[9] Run rc, hla and expression filtering
 $normal
 OUT
 

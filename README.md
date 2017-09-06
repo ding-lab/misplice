@@ -6,21 +6,21 @@ Before running change lines 58,75,78 in MiSplice.pl to reflect personal director
 
 Usage: perl MiSplice.pl <run_folder> <step_number>
 
-<run_folder> = full path of the folder holding maf file for all mutations (misplice.input.maf) and file for the sample list (currently named as Samples).
+<run_folder> = full path of the folder holding mutation annotation file(maf) file for all mutations (misplice.input.maf) and file for the sample list (currently named as Samples).
 
 <step_number> run this pipeline step by step. (running the whole pipeline if step number is 0)
 
-[1] Split maf
+[1] Split mutation annotation file (MAF) into multiple files for processing
 
-[2] Run discovery for splice creating events
+[2] Run discovery of mutation induced splice creating events
 
-[3] Generate control maf
+[3] Generate control MAF
 
-[4] Calculate # of supporting reads for control samples
+[4] Calculate number of supporting reads for control samples
 
 [5] Combine the read count for case and control samples
         
-[6] Calculate the splice score 
+[6] Calculate the splice score (MaxEntScan)
 
 [7] Split novel sites for bam readcounts 
 
