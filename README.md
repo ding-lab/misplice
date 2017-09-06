@@ -2,6 +2,8 @@
 
 Pipeline for discovering mutation-induced splice creating events from RNA-Seq
 
+Before running change lines 58,75,78 in MiSplice.pl to reflect personal directories.
+
 Usage: perl MiSplice.pl <run_folder> <step_number>
 
 <run_folder> = full path of the folder holding maf file for all mutations (misplice.input.maf) and file for the sample list (currently named as Samples).
