@@ -8,7 +8,7 @@ Usage: perl MiSplice.pl <run_folder> <step_number>
 
 <run_folder> = full path of the folder holding mutation annotation file(maf) file for all mutations (misplice.input.maf) and file for the sample list (currently named as Samples).
 
-<step_number> run this pipeline step by step. (running the whole pipeline if step number is 0)
+<step_number> run this pipeline step by step.
 
 [1] Split mutation annotation file (MAF) into multiple files for processing
 
@@ -27,6 +27,10 @@ Usage: perl MiSplice.pl <run_folder> <step_number>
 [8] Do bam readcounts
 
 [9] Run rc, hla and expression filtering 
+
+[11] Run steps 1, 2 and 3
+
+[12] Run steps 4, 5, 6, 7, 8 and 9
 
 File format for samples as following (table-delimited with sample id and cancer type):
 
