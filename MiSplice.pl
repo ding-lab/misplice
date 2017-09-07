@@ -31,7 +31,7 @@ $yellow     Usage: perl $0 <run_folder> <step_number> $normal
 
 <run_folder> = full path of the folder holding files for this sequence run
 
-<step_number> run this pipeline step by step. (running the whole pipeline if step number is 0)
+<step_number> run this pipeline step by step. (running the whole pipeline if step number is 11, then run filtering step (12) after 11 completes)
 
 $red	[1] Split maf
 	[2] Run discovery for splice creating events
@@ -55,11 +55,11 @@ if ($run_dir =~/(.+)\/$/) {
     $run_dir = $1;
 }
 die $usage unless (($step_number >=0)&&($step_number <= 9) || ($step_number==11) || ($step_number==12));
-my $email = "scao\@wustl\.edu";
+my $email = "reyka\@wustl\.edu";
 # everything else below should be automated
 my $HOME = $ENV{HOME};
 my $working_name= (split(/\//,$run_dir))[-2];
-my $HOME1="/gscmnt/gc2524/dinglab";
+my $HOME1="/gscmnt/gc2509/dinglab/reyka/MC3_splice";
 #store job files here
 if (! -d $HOME1."/tmp_misplice") {
     `mkdir $HOME1"/tmp_misplice"`;
@@ -72,14 +72,13 @@ if (! -d $HOME1."/LSF_DIR_MISPLICE") {
 
 my $file_number_of_spliting = 200;
 
-my $lsf_file_dir = $HOME1."/LSF_DIR_MISPLICE";
+my $lsf_file_dir = $HOME1."/LSF_DIR_MISPLICE" or die;
 
 ### USER can define them ###  
 
-my $script_dir="/gscuser/scao/gc2524/dinglab/splice/git/misplice";
-my $fmaf=$run_dir."/misplice.input.maf";
-#/gscuser/rjayasin/projects/new_WG/Splice_project/dat/MAF/tcga_filtered_ucsc_rc.MAFFINAL.NEW";
-my $rcbam=$script_dir."/resource/RNA_bampaths_021417_chr.txt";
+my $script_dir = "/gscmnt/gc2706/dinglab/medseq/LabCode/Reyka/misplice";
+my $fmaf = $run_dir."/misplice.input.maf";
+my $rcbam = $script_dir."/resource/RNA_bampaths_021417_chr.txt";
 
 #############
 

@@ -8,7 +8,7 @@ Usage: perl MiSplice.pl <run_folder> <step_number>
 
 <run_folder> = full path of the folder holding mutation annotation file(maf) file for all mutations (misplice.input.maf) and file for the sample list (currently named as Samples).
 
-<step_number> run this pipeline step by step. (running the whole pipeline if step number is 0)
+<step_number> run this pipeline step by step. (running the whole pipeline if step number is 11, once 11 completes run filtering steps (step 12))
 
 [1] Split mutation annotation file (MAF) into multiple files for processing
 
@@ -40,3 +40,21 @@ TCGA-02-2485    gbm
 
 TCGA-02-2486    gbm
 
+File format for Mutation Annotation File (MAF)
+     1	VPS13D
+     2	0
+     3	.
+     4	GRCh37
+     5	1
+     6	12418559
+     7	12418559
+     8	+
+     9	Missense_Mutation
+    10	SNP
+    11	C
+    12	T
+    13	T
+    14	novel
+    15
+    16	TCGA-02-0047-01A-01D-1490-08
+    17	TCGA-02-0047-10A-01D-1490-08
