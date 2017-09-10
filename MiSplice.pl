@@ -31,7 +31,7 @@ $yellow     Usage: perl $0 <run_folder> <step_number> $normal
 
 <run_folder> = full path of the folder holding files for this sequence run
 
-<step_number> run this pipeline step by step. (running the whole pipeline if step number is 11, then run filtering step (12) after 11 completes)
+<step_number> run this pipeline step by step. (Either run step 1 to step 9 separately) OR run step 11, then steps 7,8,9 separately.
 
 $red	[1] Split maf
 	[2] Run discovery for splice creating events
@@ -321,7 +321,8 @@ sub bsub_support_reads_table{
 	print EXPF "OUTF=".$run_dir."/case.control.distributionmethod\n";
 	print EXPF "OUTF_K=".$run_dir."/case.control.distributionmethod.withkey\n";
 	print EXPF "SUFFIX="."v2.filtered.5\n";
-	print EXPF "     ".$run_script_path."case_control_rc_5.pl \${FS} $f_contr \${SUFFIX} $NUM_CONTR > \${OUTF}\n";
+	#print EXPF "     ".$run_script_path."case_control_rc_5.pl \${FS} $f_contr \${SUFFIX} $NUM_CONTR > \${OUTF}\n";
+	print EXPF "     ".$run_script_path."case_control_rc_5.pl $f_contr \${SUFFIX} $NUM_CONTR > \${OUTF}\n";
 	print EXPF "cat \${OUTF} | awk \'{print substr(\$3,1,12)\"_\"\$5\"\t\"\$0}\' > \${OUTF_K}\n";
     close EXPF;
 

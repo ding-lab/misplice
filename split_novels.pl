@@ -28,7 +28,7 @@ my $n1;
  
 if($n=~/^(\d+)/) { $n1=$1; }
 
-if($n1<$max_num) { `grep -v ^Sample $file_in > $f_out`; last; }
+if($n1<$max_num) { `grep -v ^Sample $file_in > $f_out`; exit; }
 
 my $max_var = int($n1/$max_num); 
 my $cc=0;

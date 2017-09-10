@@ -43,3 +43,7 @@ TCGA-02-2483    gbm
 TCGA-02-2485    gbm
 
 TCGA-02-2486    gbm
+
+File format for Mutation Annotation File
+
+
