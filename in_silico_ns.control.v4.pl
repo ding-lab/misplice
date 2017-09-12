@@ -15,12 +15,14 @@ use warnings;
 perl filter_fp_ns.pl f_in f_out
 OUT
 
-die $usage unless @ARGV == 2;
-my ($f_in, $f_out) = @ARGV;
+die $usage unless @ARGV == 3;
+my ($f_in, $f_out, $script_dir) = @ARGV;
 
 #my $f_bam_list="/gscuser/scao/data_source/rnaseq/bam_path_02_10_2017.tsv"; 
-my $f_bam_list="/gscuser/scao/data_source/rnaseq/bam_path_03_04_2017.tsv";
-my $f_e75="/gscuser/scao/gc2524/dinglab/bed_maker/E75_bed_v3.sort.tsv";
+#my $f_bam_list="/gscuser/scao/data_source/rnaseq/bam_path_03_04_2017.tsv";
+my $f_bam_list = $script_dir."/resource/bampath.txt";
+my $f_e75= $script_dir."/resource/E75_bed.tsv";
+#my $f_e75="/gscuser/scao/gc2524/dinglab/bed_maker/E75_bed.tsv";
 
 ##0-based##
 
@@ -58,7 +60,8 @@ foreach my $l (`cat $f_bam_list`)
 	 	my @temp=split(" ",$ltr); 
 		#print $temp[2],"\t",$temp[4],"\n";	
 		my $sn=substr($temp[0],0,12); 
-		if($temp[4]=~/chr/) { $bampathchr{$sn}=$temp[2]; }
+		#if($temp[4]=~/chr/) { $bampathchr{$sn}=$temp[2]; }
+		if($temp[3]=~/chr/) { $bampathchr{$sn}=$temp[2]; }
 		else { $bampath{$sn}=$temp[2]; }
 	}
 
@@ -67,7 +70,8 @@ foreach my $l (`cat $f_in`)
 		my $ltr=$l; chomp($ltr); 
 		my @temp=split("\t",$ltr);
 		# sample list 104 ###
-		my $slist=$temp[104];
+		#my $slist=$temp[104];
+		my $slist=$temp[14];
 		my @tempn=split(/\,/,$slist);
 		my $ns=scalar @tempn; 
 
@@ -77,10 +81,10 @@ foreach my $l (`cat $f_in`)
 		my $sn=$tempn[$i]; 
 		#print $sn,"\n";
 		#<STDIN>; 	
-		my $chr=$temp[4]; 
-		my $pos=$temp[5];
-		my $ref=$temp[10];
-		my $var=$temp[12]; 
+		my $chr=$temp[1]; 
+		my $pos=$temp[2];
+		my $ref=$temp[7];
+		my $var=$temp[9]; 
         my $dellen=0;
         if($var eq "-") { $dellen=length($ref); }
 		#print $chr,"\t",$pos,"\n";

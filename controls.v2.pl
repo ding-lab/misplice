@@ -57,13 +57,14 @@ while (<$MAF>){
     chomp ($line=$_);
     my @line=split(/\t/,$line);
     #my $gene=$line[0];#gene (Hugo Symbol)
-    if(length($line[15])<15) { $line[15].="-01"; }
-    my $sn=substr($line[15],0,12);
+    #if(length($line[15])<15) { $line[15].="-01"; }
+    if(length($line[10])<15) { $line[10].="-01"; }
+    my $sn=substr($line[10],0,12);
 	#my $sn=
     my $cancertype=$sn_2_ct{$sn};#cancertype
 	#my $id=$cancertype.$gene;
-	my $chr=$line[4]; 
-	my $pos=$line[5];
+	my $chr=$line[1]; 
+	my $pos=$line[2];
 	my $id=$chr."_".$pos;
 	$casehash{$cancertype}{$id}=1;	
 }
@@ -78,15 +79,15 @@ while(<$OGMAF>){
     $counter++;
     chomp ($linest=$_);
     @ss=split(/\t/,$linest);
-    $sample=$ss[15];
+    $sample=$ss[10];
 	my $shortsnmaf=$1 if $sample=~/(^TCGA-\w{2}-\w{4})/;
     $gene=$ss[0];
 	if(defined $sn_2_ct{$shortsnmaf}) 
 	{
 		$cancer=$sn_2_ct{$shortsnmaf}; 
 #Only store mutation info about gene of interest if gene is found in our <Mutation List of Interest>MAF
-	 my $chr=$ss[4];
-    my $pos=$ss[5];
+	 my $chr=$ss[1];
+    my $pos=$ss[2];
     my $id=$chr."_".$pos;
 	if (exists $casehash{$cancer}{$id}){
  	    	$mutation{$cancer}{$id}{$shortsnmaf}=1;
@@ -113,13 +114,13 @@ while (<$MAF>){
 	chomp ($line=$_);
 	@ss1=split(/\t/,$line);
 #Extract sample name from MAF file
-	my $samplemaf=$ss1[15];
+	my $samplemaf=$ss1[11];
 #shorten sample name to only include unique identifiers TCGA-XX-XXXX
 	my $shortsamplemaf=$1 if $samplemaf=~/(^TCGA-\w{2}-\w{4})/;
 	chomp $shortsamplemaf;			
 	my $cancertype=$sn_2_ct{$shortsamplemaf};#cancertype
-    my $chr=$ss1[4];
-    my $pos=$ss1[5];
+    my $chr=$ss1[1];
+    my $pos=$ss1[2];
     my $id=$chr."_".$pos;
 	my $controlstring="";
 	foreach my $s (sort keys %{$rnasamples{$cancertype}})

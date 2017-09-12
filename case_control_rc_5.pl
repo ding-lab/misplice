@@ -64,11 +64,18 @@ for(1...$total_number){
 	while(my $mline=<$MAF>){
 		chomp $mline;
 		my @mafline=split(/\t/,$mline);
-		$casereads=$mafline[103];
-		$cancer=$mafline[90];
-		$sampleid=$mafline[15];
+		#$casereads=$mafline[103];
+		#$cancer=$mafline[90];
+		#$sampleid=$mafline[15];
+		#$genename=$mafline[0];
+		#$Variant=$mafline[4]."_".$mafline[5]."_".$mafline[10]."_".$mafline[12];
+		$casereads=$mafline[13];
+		$cancer=$mafline[12];
+		$sampleid=$mafline[10];
 		$genename=$mafline[0];
-		$Variant=$mafline[4]."_".$mafline[5]."_".$mafline[10]."_".$mafline[12];
+		$Variant=$mafline[1]."_".$mafline[2]."_".$mafline[7]."_".$mafline[9];
+
+
 	
 	}
 	close $MAF;

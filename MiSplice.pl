@@ -78,7 +78,7 @@ my $lsf_file_dir = $HOME1."/LSF_DIR_MISPLICE" or die;
 
 my $script_dir = "/gscmnt/gc2706/dinglab/medseq/LabCode/Reyka/misplice";
 my $fmaf = $run_dir."/misplice.input.maf";
-my $rcbam = $script_dir."/resource/RNA_bampaths_021417_chr.txt";
+my $rcbam = $script_dir."/resource/bampath.txt";
 
 #############
 
@@ -138,9 +138,6 @@ if($step_number==11)
      &bsub_rc_hla_filter(1);
 	}
 
-
-
-
 sub bsub_maf_split{
     #my $cdhitReport = $sample_full_path."/".$sample_name.".fa.cdhitReport";
 
@@ -197,7 +194,7 @@ sub bsub_job_array_ns {
 	#print ANS 'if [ ! -f $ANS_OUT]',"\n";
     print ANS "if [ ! -f \${ANS_OUT} ]\n";
 	print ANS "then\n";
-	print ANS "     ".$run_script_path."in_silico_ns.v4.pl \${ANS_IN} \${ANS_OUT}"."\n";
+	print ANS "     ".$run_script_path."in_silico_ns.v4.pl \${ANS_IN} \${ANS_OUT} $script_dir"."\n";
 	print ANS "fi\n";
 	close ANS;
     $bsub_com = "bsub < $job_files_dir/$current_job_file\n";
@@ -285,7 +282,7 @@ sub bsub_array_control {
     #print CONTRS "#BSUB -q ding-lab\n"; 
 	print CONTRS "CONT_OUT=".$run_dir."/Controls/novel.junctions.filtered.controls.".'${LSB_JOBINDEX}'.".v2.filtered.5\n";
     print CONTRS "CONT_IN=".$run_dir."/Controls/novel.junctions.filtered.controls.".'${LSB_JOBINDEX}'."\n";    
-    print CONTRS "     ".$run_script_path."in_silico_ns.control.v4.pl \${CONT_IN} \${CONT_OUT}\n";
+    print CONTRS "     ".$run_script_path."in_silico_ns.control.v4.pl \${CONT_IN} \${CONT_OUT} $script_dir\n";
     close CONTRS;
     $bsub_com = "bsub < $job_files_dir/$current_job_file\n";
     system ($bsub_com);
@@ -476,9 +473,23 @@ sub bsub_rc_hla_filter{
 	print RCHLA "grep -v \'HLA-\' \${RCTC} > \${HLA}\n";
 	print RCHLA "awk -F\' \' \'{ tmp=(\$21/(\$14))*100; print \$1\"\\t\"tmp\"\\t\"\$0}\' \${HLA}|awk \'\$2>5\' > \${HLAVAF}\n"; 
 	print RCHLA "grep high_expression \${HLAVAF} > \${HLAVAFH}\n";
-	print RCHLA "cat $run_dir/NS_CASE/misplice.input.maf.*.filtered.5 |awk -F\'\\t\' \'{print substr(\$16,1,12)\"_\"\$5\"_\"\$6\"_\"\$11\"_\"\$13\"\\t\"\$0}' > \${MAFK}\n";	
-	print RCHLA "     ".$run_script_path."combine.pl \${MAFK} \${HLAVAFH} 0 0 > \${FINAL}\n";
+#	print RCHLA "cp novel.splice.scores.rc.key.combined.noHLA.vaf.highexp novel_splice_creating_variants.final"
+	print RCHLA "cat ".$script_dir."/resource/header novel.splice.scores.rc.key.combined.noHLA.vaf.highexp > novel_splice_creating_variants.final";
+#	print RCHLA "cat $run_dir/NS_CASE/misplice.input.maf.*.filtered.5 |awk -F\'\\t\' \'{print substr(\$16,1,12)\"_\"\$5\"_\"\$6\"_\"\$11\"_\"\$13\"\\t\"\$0}' > \${MAFK}\n";	
+#	print RCHLA "     ".$run_script_path."combine.pl \${MAFK} \${HLAVAFH} 0 0 > \${FINAL}\n";
+	
 	close RCHLA;
 	$bsub_com = "bsub < $job_files_dir/$current_job_file\n";
     system ($bsub_com);
 }
+
+
+
+#mv case.control.distributionmethod* tmp_misplice/.
+#mv novel.splice.scores.rc.key tmp_misplice/.
+#mv novel.splice.scores.rc.key.combined tmp_misplice/.
+#mv novel.splice.scores.rc.key.combined.noHLA tmp_misplice/.
+#mv novel.splice.scores.rc.key.combined.noHLA.vaf tmp_misplice/.
+#mv novel.splice.scores.rc.key.combined.noHLA.vaf.highexp tmp_misplice/.
+
+

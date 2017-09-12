@@ -28,22 +28,25 @@ Usage: perl MiSplice.pl <run_folder> <step_number>
 
 [9] Run rc, hla and expression filtering 
 
-[11] Run steps 1, 2 and 3
-
-[12] Run steps 4, 5, 6, 7, 8 and 9
+File format for input MAF (shortened)
+     1	GENE	VPS13D
+     2	CHR	1
+     3	START	12418559
+     4	STOP	12418559
+     5	STRAND	+
+     6	MUTATION TYPE	Missense_Mutation
+     7	TYPE	SNP
+     8	REFALLELE	C
+     9	TUMORALLELE1	T
+    10	TUMORALLELE2	T
+    11	TUMOR SAMPLE	TCGA-02-0047-01A-01D-1490-08
+    12	NORMAL SAMPLE	TCGA-02-0047-10A-01D-1490-08
+    13	CANCER TYPE gbm
 
 File format for samples as following (table-delimited with sample id and cancer type):
-
-TCGA-02-0047    gbm
-
-TCGA-02-0055    gbm
-
-TCGA-02-2483    gbm
-
-TCGA-02-2485    gbm
-
-TCGA-02-2486    gbm
-
-File format for Mutation Annotation File
-
+	TCGA-02-0047    gbm
+	TCGA-02-0055    gbm
+	TCGA-02-2483    gbm
+	TCGA-02-2485    gbm
+	TCGA-02-2486    gbm
 

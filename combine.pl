@@ -35,7 +35,6 @@ open(my $F2,'<',$file2) or die "Can't open $file2!";
 close $F2;
 
 #PRINT OUT RESULTS
-
 foreach my $sites (keys %file1data){
 	if (exists $file1data{$sites}){
 		if (exists $file2data{$sites}){

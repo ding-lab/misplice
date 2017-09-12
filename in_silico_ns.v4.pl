@@ -15,11 +15,14 @@ use warnings;
 perl filter_fp_ns.pl f_in f_out
 OUT
 
-die $usage unless @ARGV == 2;
-my ($f_in, $f_out) = @ARGV;
+die $usage unless @ARGV == 3;
+my ($f_in, $f_out, $script_dir) = @ARGV;
 
-my $f_bam_list="/gscuser/scao/data_source/rnaseq/bam_path_03_04_2017.tsv"; 
-my $f_e75="/gscuser/scao/gc2524/dinglab/bed_maker/E75_bed_v3.sort.tsv";
+#my $f_bam_list="/gscuser/scao/data_source/rnaseq/bam_path_03_04_2017.tsv"; 
+#my $f_e75="/gscuser/scao/gc2524/dinglab/bed_maker/E75_bed_v3.sort.tsv";
+
+my $f_bam_list = $script_dir."/resource/bampath.txt";
+my $f_e75= $script_dir."/resource/E75_bed.tsv";
 
 ##0-based##
 
@@ -57,7 +60,8 @@ foreach my $l (`cat $f_bam_list`)
 	 	my @temp=split(" ",$ltr); 
 		#print $temp[2],"\t",$temp[4],"\n";	
 		my $sn=substr($temp[0],0,15); 
-		if($temp[4]=~/chr/) { $bampathchr{$sn}=$temp[2]; }
+		#if($temp[4]=~/chr/) { $bampathchr{$sn}=$temp[2]; }
+		if($temp[3]=~/chr/) { $bampathchr{$sn}=$temp[2]; }
 		else { $bampath{$sn}=$temp[2]; }
 	}
 
@@ -65,13 +69,19 @@ foreach my $l (`cat $f_in`)
 	{
 		my $ltr=$l; chomp($ltr); 
 		my @temp=split("\t",$ltr);
-		if(length($temp[15])<15) { $temp[15].="-01"; }
-		my $sn=substr($temp[15],0,15); 
-		#print $sn,"\n";
-		my $chr=$temp[4]; 
-		my $pos=$temp[5];
-		my $ref=$temp[10];
-		my $var=$temp[12];
+		if(length($temp[10])<15) { $temp[10].="-01"; }
+		my $sn=substr($temp[10],0,15); 
+		my $chr=$temp[1]; 
+		my $pos=$temp[2];
+		my $ref=$temp[7];
+		my $var=$temp[9];
+		#print STDERR "$sn\t$chr\t$pos\t$ref\t$var\n"; 
+		#if(length($temp[15])<15) { $temp[15].="-01"; }
+		#my $sn=substr($temp[15],0,15); 
+		#my $chr=$temp[4]; 
+		#my $pos=$temp[5];
+		#my $ref=$temp[10];
+		#my $var=$temp[12];
 		my $dellen=0; 
 		if($var eq "-") { $dellen=length($ref); } 
 		#print $chr,"\t",$pos,"\n";

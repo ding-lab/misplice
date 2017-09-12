@@ -60,6 +60,7 @@ while(<$MAF>){
 		my $sample=$array1[0];
 		my $chr=$array1[1];
 		my $pos=$array1[7];	
+
 		my $shortsn=substr($sample,0,12);
 		my $position=$chr.":".$pos."-".$pos;
         #my $bam=$bamhash{$shortsn};

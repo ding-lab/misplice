@@ -259,7 +259,8 @@ foreach my $input (glob("$dir/$info"))
 	{
 		chomp;
 		my @line = split(/\t/,);
-		my $id = join("\t", $line[4], $line[5]);
+		#my $id = join("\t", $line[4], $line[5]);
+		my $id = join("\t", $line[1], $line[2]);
 		next if $line[0] eq "Unknown";
 		$hash{$id} = $strand{uc($line[0])};
 	}
@@ -271,7 +272,6 @@ foreach my $input (glob("$dir/$info"))
 		if($_=~m/^TCGA/)
 		{
 			my @l = split(/\t/,);
-
 			#### using length 20 as a cut-off ####
 
 	 		if(length($l[3])>=20 || length($l[4])>=20) { next; }
