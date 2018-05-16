@@ -1,6 +1,15 @@
 # MiSplice pipeline #
 
-Pipeline for discovering mutation-induced splice creating events from RNA-Seq
+#Song Cao, Reyka Jayasinghe, Qingsong Gao, Mike Wendl#
+
+Pipeline for discovering splice-site creating mutations (SCMs) from RNA-Seq
+
+Please cite the following paper if you use MiSplice pipeline:
+
+Systematic Analysis of Splice-Site-Creating Mutations in Cancer
+Jayasinghe RG*, Cao S*, Gao Q, Wendl MC, Vo NS, Reynolds SM, Zhao Y, Climente-González H, Chai S, Wang F, Varghese R, Huang M, Liang W, Wyczalkowski MA, Sengupta S, Li Z, Payne SH, Fenyö D, Miner JH, Walter MJ, The Cancer Genome Atlas Research Network, Vincent B, Eyras E, Chen K, Shmulevich I, Chen F, Ding L
+Cell Rep 2018 Apr 3;23(1):270-281
+
 
 Before running change lines 58,75,78 in MiSplice.pl to reflect personal directories.
 

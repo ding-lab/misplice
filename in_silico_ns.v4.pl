@@ -108,13 +108,17 @@ foreach my $l (`cat $f_in`)
 		if($bam ne "NULL" && (-e $bam)) 
 		{
 			#print $bam,"\n";
-			my $com=`samtools view $bam \"$chr_pos\"`;
+			#my $com=`samtools view $bam \"$chr_pos\"`;
 			#print $com; 
-			my @temp=split("\n",$com); 
+			#my @temp=split("\n",$com); 
 			my %count_read=();
-			foreach my $t (@temp)
-			{
-				my @temp2=split("\t",$t); 
+            foreach my $t (`samtools view $bam \"$chr_pos\"`)
+            {
+                chomp($t);
+                my @temp2=split("\t",$t);
+			#foreach my $t (@temp)
+			#{
+#				my @temp2=split("\t",$t); 
 				if($temp2[5]=~/^(\d+)M(\d+)N(\d+)M$/)
 				{
 
