@@ -12,17 +12,17 @@ Jayasinghe RG*, Cao S*, Gao Q, Wendl MC, Vo NS, Reynolds SM, Zhao Y, Climente-Go
 Cell Rep 2018 Apr 3;23(1):270-281
 
 
-Before running change lines 58,75,78 in MiSplice.pl to reflect personal directories.
+Before running change lines 58,75,78 in MiSplice.pl to reflect personal directories. Bed file for step 2 and step 4 can be found from https://drive.google.com/file/d/14vHI3G45c-xBzpgzs_I43orrKbNJyIVi/view?usp=sharing.  
 
 Usage: perl MiSplice.pl <run_folder> <step_number>
 
-<run_folder> = full path of the folder holding mutation annotation file(maf) file for all mutations (misplice.input.maf) and file for the sample list (currently named as Samples).
+<run_folder> = full path of the folder holding mutation annotation file (maf) file for all mutations (misplice.input.maf) and file for the sample list (currently named as Samples).
 
 <step_number> run this pipeline step by step (Either run step 1 to step 9 separately) OR run step 11, then steps 7,8,9 separately.
 
 [1] Split mutation annotation file (MAF) into multiple files for processing
 
-[2] Run discovery of mutation induced splice creating events
+[2] Run discovery step of mutation induced splice creating events
 
 [3] Generate control MAF
 
