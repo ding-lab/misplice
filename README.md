@@ -38,7 +38,8 @@ Usage: perl MiSplice.pl <run_folder> <step_number>
 
 [9] Run rc, hla and expression filtering 
 
-File format for input MAF (shortened)
+File format for input MAF (shortened):
+ 
      1	GENE	VPS13D
     
 	 2	CHR	1
