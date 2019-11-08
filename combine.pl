@@ -20,7 +20,9 @@ open(my $F1,'<',$file1) or die "Can't open $file1!";
 	while(my $line=<$F1>){
 		chomp $line;
 		my @linearray=split(/\t/,$line);
-		$file1data{$linearray[$colfile1]}=$line;
+        my $id=$linearray[$colfile1];
+        $id=~s/_T//g; 
+		$file1data{$id}=$line;
 	} 
 close $F1;
 
@@ -30,11 +32,14 @@ open(my $F2,'<',$file2) or die "Can't open $file2!";
 	while (my $line2=<$F2>){
         chomp $line2;
 		my @linearray2=split(/\t/,$line2);
-        $file2data{$linearray2[$colfile2]}=$line2;
+		my $id=$linearray2[$colfile2];
+		$id=~s/_T//g; 
+        $file2data{$id}=$line2;
     }
 close $F2;
 
 #PRINT OUT RESULTS
+
 foreach my $sites (keys %file1data){
 	if (exists $file1data{$sites}){
 		if (exists $file2data{$sites}){

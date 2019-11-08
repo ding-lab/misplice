@@ -1,0 +1,8 @@
+#Homo_sapiens.GRCh38.95.gtf.parsed; E95_bed_v3.tsv shift by -1 for both start and end position
+
+## 1. get gtf file from ncbi  
+## 2. parse get file
+
+perl parse_gtf_v3.pl Homo_sapiens.GRCh38.95.gtf > Homo_sapiens.GRCh38.95.gtf.parsed
+
+perl -e '$f="Homo_sapiens.GRCh38.95.gtf.parsed"; foreach $l (`cat $f`) { $l_tr=$l; chomp($l_tr); @ss=split("\t",$l_tr); $g=$ss[0]; $tid=$ss[1]; $strand=$ss[2]; for($i=3;$i<scalar @ss;$i++) { @bed=split(";",$ss[$i]); @temp=split(":",$bed[1]); $chr="chr".$temp[0]; @pos=split("-",$temp[1]); $id=$g.":".$tid.":".$strand; $id_e=$id.":".$bed[0]; $exon_l[$i]=$pos[0]; $exon_r[$i]=$pos[1]; if($i>3) { $i_shift=$i-3; $id_i=$id.":"."i".$i_shift; if($strand eq "-") { print $chr, "\t", $exon_r[$i], "\t", $exon_l[$i-1]-2, "\t", $id_i,"\n";} else { print $chr, "\t", $exon_r[$i-1], "\t", $exon_l[$i]-2, "\t", $id_i,"\n"; }} print $chr,"\t",$pos[0]-1,"\t",$pos[1]-1,"\t",$id_e,"\n"; }}' > E95_bed_v3.tsv

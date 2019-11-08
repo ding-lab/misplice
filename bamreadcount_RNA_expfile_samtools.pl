@@ -33,12 +33,13 @@ while(my $bamline=<$RNAbamlist>){
 	chomp $bamline;
 	my @baminfo=split(/ /,$bamline);
 	my $bsample=$baminfo[0];
-	my $sn=substr($bsample,0,15);
-#	print "$sn\n";
+	my $sn=$bsample; 
+	#substr($bsample,0,15);
+	#print "$sn\n";
 #Skip all normal tissue samples
-	next if $sn=~/TCGA-\w{2}-\w{4}-10/;
-	next if $sn=~/TCGA-\w{2}-\w{4}-11/;
-	my $snshort=substr($bsample,0,12);
+	#next if $sn=~/TCGA-\w{2}-\w{4}-10/;
+	#next if $sn=~/TCGA-\w{2}-\w{4}-11/;
+	my $snshort=$bsample;
 	my $c=$baminfo[1];
 	my $bam=$baminfo[2];
 	my $chrprefix=$baminfo[3];
@@ -60,8 +61,8 @@ while(<$MAF>){
 		my $sample=$array1[0];
 		my $chr=$array1[1];
 		my $pos=$array1[7];	
-
-		my $shortsn=substr($sample,0,12);
+#		my $shortsn=substr($sample,0,12);
+		my $shortsn=$sample;
 		my $position=$chr.":".$pos."-".$pos;
         #my $bam=$bamhash{$shortsn};
         my $bam=$bamhash{$sample};

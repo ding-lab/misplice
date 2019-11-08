@@ -28,8 +28,7 @@ my $n1;
  
 if($n=~/^(\d+)/) { $n1=$1; }
 
-if($n1<$max_num) { `cp $file_in $f_out`; exit; }
-
+if($n1<$max_num) { `cp $file_in $f_out`; last; }
 my $max_var = int($n1/$max_num); 
 my $cc=0;
  

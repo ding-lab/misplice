@@ -4,15 +4,15 @@ use strict;
 use warnings;
 
 (my $usage = <<OUT) =~ s/\t+//g;
-perl splice_score_novel.pl dir_s dir_in info
+perl splice_score_novel.pl dir_s dir_in info f_ref f_bed
 OUT
 
-die $usage unless @ARGV == 3;
+die $usage unless @ARGV == 5;
 
-my ($dir_s,$dir_in, $info) = @ARGV;
+my ($dir_s,$dir_in, $info,$f_ref,$f_bed) = @ARGV;
 
 print "Reading genome.......";
-my $genome = "$dir_s/resource/hs37d5.fa";
+my $genome = $f_ref;
 
 #print $genome,"\n";
 #my ($dir_in) = @ARGV;
@@ -29,6 +29,8 @@ while(<REF>)
         {
                 my @line = split(/\s+/, substr($_,1));
                 $id=$line[0];
+		## remove chr if it has ##
+		$id=~s/chr//g; 
         }else
         {
                 $gen{$id}.=uc($_);
@@ -37,17 +39,25 @@ while(<REF>)
 print "Done!\n";
 
 print "Reading annotation...";
-my $gtf = "$dir_s/resource/Homo_sapiens.GRCh37.75.gtf";
+my $bed = $f_bed;
+
 my %strand;
-open(IN, "$gtf");
+open(IN, "$bed");
 while(<IN>)
 {
 	chomp;
 	next if $_ =~m/^#/;
 	my @l = split(/\t/,);
-	next if $l[2] ne "gene";
-	my @m = split(/\"/, $l[8]);
-	$strand{uc($m[3])} = $l[6];
+#	next if $l[2] ne "gene";
+#	my @m = split(/\;/, $l[8]);
+#	for(my $i=0;$i<scalar @m;$i++) 
+#	{
+#	 if($m[$i]=~/gene_name/)
+#	{
+#	my @m2=split(/\"/,$m[$i]);	
+	$strand{uc($l[0])} = $l[2];
+#	}
+#	}
 }
 print "Done!\n";
 
@@ -259,21 +269,29 @@ foreach my $input (glob("$dir/$info"))
 	{
 		chomp;
 		my @line = split(/\t/,);
-		#my $id = join("\t", $line[4], $line[5]);
-		my $id = join("\t", $line[1], $line[2]);
+		my $id = join("\t", $line[4], $line[5]);
 		next if $line[0] eq "Unknown";
 		$hash{$id} = $strand{uc($line[0])};
 	}
 
 	open(DATA, "$input.detailed.alignment.5.max");
+	#print "while","\n";
+	#print $input,"\n";
 	while(<DATA>)
 	{
+		#my $line=$_; 
+		#chomp($line);
 		chomp;
-		if($_=~m/^TCGA/)
+		my @templ=split(/\t/,);
+		#print $line,"\n";
+		my $nl=scalar @templ; 
+		#print $nl,"\n";
+		#<STDIN>;
+		if($nl==5)
 		{
 			my @l = split(/\t/,);
 			#### using length 20 as a cut-off ####
-
+			#print $l[3],"\t",$l[4],"\n";
 	 		if(length($l[3])>=20 || length($l[4])>=20) { next; }
 			my $nxt = <DATA>;
 			my @m = split(/\t/, $nxt);

@@ -3,14 +3,25 @@ use warnings;
 
 my $usage =<<USAGE;
  Usage: $0 <prefix> <largest_file_#>
-  Example: perl case_control_rc_5.pl prefix suffix tot_number
+  Example: perl case_control_rc_5.v3.pl sample prefix suffix tot_number
 
 USAGE
-    die $usage unless @ARGV==3;
+    die $usage unless @ARGV==4;
 
-my $total_number=$ARGV[2];
-my $prefix=$ARGV[0];
-my $suffix=$ARGV[1];
+my $total_number=$ARGV[3];
+my $prefix=$ARGV[1];
+my $suffix=$ARGV[2];
+my $fs=$ARGV[0];
+my %sn_2_ct=(); 
+
+foreach my $l (`cat $fs`) 
+	{
+	 my $ltr=$l; 
+	 chomp($ltr); 
+	 my @temp=split("\t",$ltr); 
+	 $sn_2_ct{$temp[0]}=$temp[1]; 
+	}
+
 for(1...$total_number){
 
 #novel.junctions.allgenes.filtered.5.controls.1.num2.run2
@@ -25,23 +36,24 @@ for(1...$total_number){
 #TCGA-05-4422	1
 
 	open(my $CON,'<',$control_file) or die "Can't open $control_file!";
-
 	#Counter to keep track of the number of controls and number of reads supporting this alternative junction for this particular site and gene
 	my $sum=0;
 	my $controlnumber=0;
 	my @control_reads;
 	my @control_samples;
-
 	#Go through each line of the control file concatenate all junction supporting reads and control info into an array
 
 	while(my $cline=<$CON>){
 		chomp $cline;
 		my ($sample,$reads)=split(/\t/,$cline);	
+	 	if(defined $sn_2_ct{$sample})
+		{
 		$sum=$reads+$sum;
 		$controlnumber++;
 		
 		push @control_samples,$sample;
 		push @control_reads,$reads;
+		}
 		#print "$sum(+$reads)\n";	
 	} 
 
@@ -64,20 +76,20 @@ for(1...$total_number){
 	while(my $mline=<$MAF>){
 		chomp $mline;
 		my @mafline=split(/\t/,$mline);
-		#$casereads=$mafline[103];
+		$casereads=$mafline[-2];
 		#$cancer=$mafline[90];
-		#$sampleid=$mafline[15];
-		#$genename=$mafline[0];
-		#$Variant=$mafline[4]."_".$mafline[5]."_".$mafline[10]."_".$mafline[12];
-		$casereads=$mafline[13];
-		$cancer=$mafline[12];
-		$sampleid=$mafline[10];
+#		$sampleid=$mafline[12];
+	    $sampleid=$mafline[15];
+		$sampleid=~s/\_T//g;
+		my $shortsn=$sampleid;
+		$shortsn=~s/\_T//g; 
+		$cancer=$sn_2_ct{$shortsn};
 		$genename=$mafline[0];
-		$Variant=$mafline[1]."_".$mafline[2]."_".$mafline[7]."_".$mafline[9];
+#$Variant=$mafline[1]."_".$mafline[2]."_".$mafline[7]."_".$mafline[9];	
+		$Variant=$mafline[4]."_".$mafline[5]."_".$mafline[10]."_".$mafline[12];	
 
-
-	
 	}
+
 	close $MAF;
 	my $RSEM=$cancer."\t".$sampleid."\t".$genename."\t".$Variant."\t".$casereads."\t".$readarray;
 

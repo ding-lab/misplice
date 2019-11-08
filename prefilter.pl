@@ -35,7 +35,7 @@ sub largest_key (\%)
 foreach my $input (glob("$dir_in/$info"))
 {
 	print "$input\n";
-	<STDIN>;
+	#<STDIN>;
 	open(IN, "$input");
 
 	open(OUT, ">$input.max");
@@ -45,7 +45,14 @@ foreach my $input (glob("$dir_in/$info"))
 	while(<IN>)
 	{
 		chomp;
-		if($_ =~m/^TCGA/)
+		#my @templ=
+        my @templ1=split(/\t/,$_);
+        #print $line,"\n";
+        my $nl1=scalar @templ1;
+        #print $nl,"\n";
+        #<STDIN>;
+        if($nl1==5)
+		#if($_ =~m/^MMRF/)
 		{
 			$id = $_;
 		}else
@@ -69,7 +76,12 @@ foreach my $input (glob("$dir_in/$info"))
 	while(<IN>)
 	{
 		chomp;
-		if($_ =~m/^TCGA/)
+        my @templ2=split(/\t/,$_);
+        #print $line,"\n";
+        my $nl2=scalar @templ2;
+        #print $nl,"\n";
+
+        if($nl2==5)
 		{
 			$id = $_;
 			print OUT "$_\n";
