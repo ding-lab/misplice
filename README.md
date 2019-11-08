@@ -1,4 +1,4 @@
-# MiSplice pipeline #
+# MiSplice pipeline, HG19 #
 
 #Song Cao, Reyka Jayasinghe, Qingsong Gao, Mike Wendl#
 
