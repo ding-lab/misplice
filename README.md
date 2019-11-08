@@ -1,4 +1,4 @@
-# MiSplice pipeline #
+# MiSplice pipeline, HG38 reference #
 
 #Song Cao, Reyka Jayasinghe, Qingsong Gao, Mike Wendl#
 
