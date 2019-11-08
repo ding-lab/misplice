@@ -12,11 +12,15 @@ Jayasinghe RG*, Cao S*, Gao Q, Wendl MC, Vo NS, Reynolds SM, Zhao Y, Climente-Go
 Cell Rep 2018 Apr 3;23(1):270-281
 
 
-Before running change lines 58,75,78 in MiSplice.pl to reflect personal directories. Bed file for step 2 and step 4 can be found from https://drive.google.com/file/d/14vHI3G45c-xBzpgzs_I43orrKbNJyIVi/view?usp=sharing.  
-
-Usage: perl MiSplice.pl <run_folder> <step_number>
+Usage: perl misplice.pl --rdir run_folder --bed bed_file --ref ref_file --q q_name --step <step_numuber>
 
 <run_folder> = full path of the folder holding mutation annotation file (maf) file for all mutations (misplice.input.maf) and file for the sample list (currently named as Samples).
+
+<bed_file> bed file for HG38 refernece: please follow ./resource/GRCh38/work_log_gtf to generate it or download from https://drive.google.com/file/d/1M2yLLjxBwOjUOu-uIxwtUrD_DHTTpioJ/view?usp=sharing
+
+<ref_file> HG38 refernece file
+ 
+<q_name> which bsub quenue for submitting job
 
 <step_number> run this pipeline step by step (Either run step 1 to step 9 separately) OR run step 11, then steps 7,8,9 separately.
 
