@@ -1,6 +1,8 @@
-# MiSplice pipeline, HG38 reference #
+# MiSplice pipeline #
 
-#Song Cao, Reyka Jayasinghe, Qingsong Gao, Mike Wendl#
+HG38 reference
+
+Song Cao, Reyka Jayasinghe, Qingsong Gao, Mike Wendl
 
 Pipeline for discovering splice-site creating mutations (SCMs) from RNA-Seq
 
