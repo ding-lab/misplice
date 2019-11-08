@@ -1,6 +1,6 @@
 # MiSplice pipeline #
 
-HG38 reference
+HG38 reference, for old HG19 version, please go v1.1 branch
 
 Song Cao, Reyka Jayasinghe, Qingsong Gao, Mike Wendl
 
