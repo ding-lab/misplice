@@ -13,7 +13,7 @@ Cell Rep 2018 Apr 3;23(1):270-281
 
 ## Usage
 
-perl misplice.pl --rdir run_folder --bed bed_file --ref ref_file --q q_name --step <step_numuber>
+perl misplice.pl --rdir run_folder --bed bed_file --ref ref_file --q q_name --step step_number
 
 <run_folder> = full path of the folder holding mutation annotation file (maf) file for all mutations (misplice.input.maf) and file for the sample list (currently named as Samples).
 
@@ -23,7 +23,7 @@ perl misplice.pl --rdir run_folder --bed bed_file --ref ref_file --q q_name --st
  
 <q_name> which bsub quenue for submitting job
 
-<step_number> run this pipeline step by step (Either run step 1 to step 9 separately) OR run step 11, then steps 7,8,9 separately.
+<step_number> run this pipeline step by step
 
 [1] Split mutation annotation file (MAF) into multiple files for processing
 
