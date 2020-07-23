@@ -1,18 +1,19 @@
 # MiSplice pipeline v1.2 #
 
+Pipeline for discovering splice-site creating mutations (SCMs) from RNA-Seq. It works on LSF job scheduler and can run multiple jobs in parallel. 
+
 HG38 reference. For old HG19 reference, please use v1.1 branch
 
-Pipeline for discovering splice-site creating mutations (SCMs) from RNA-Seq. It works on LSF job scheduler and can run multiple jobs in parallel.
- 
-Please cite the following paper if you use MiSplice pipeline:
+## Citation 
 
 Systematic Analysis of Splice-Site-Creating Mutations in Cancer
 
 Jayasinghe RG*, Cao S*, Gao Q, Wendl MC, Vo NS, Reynolds SM, Zhao Y, Climente-González H, Chai S, Wang F, Varghese R, Huang M, Liang W, Wyczalkowski MA, Sengupta S, Li Z, Payne SH, Fenyö D, Miner JH, Walter MJ, The Cancer Genome Atlas Research Network, Vincent B, Eyras E, Chen K, Shmulevich I, Chen F, Ding L,
-Cell Rep 2018 Apr 3;23(1):270-281
+Cell Rep 2018 Apr 3;23(1):270-281 
 
+## Usage
 
-Usage: perl misplice.pl --rdir run_folder --bed bed_file --ref ref_file --q q_name --step <step_numuber>
+perl misplice.pl --rdir run_folder --bed bed_file --ref ref_file --q q_name --step <step_numuber>
 
 <run_folder> = full path of the folder holding mutation annotation file (maf) file for all mutations (misplice.input.maf) and file for the sample list (currently named as Samples).
 
@@ -81,7 +82,7 @@ File format for samples as following (table-delimited with sample id and cancer 
 
 	TCGA-02-2486    gbm
 
-# Developers # 
+## Developers  
 
 Song Cao, Reyka Jayasinghe, Qingsong Gao, Mike Wendl
 
