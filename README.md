@@ -1,8 +1,6 @@
 # MiSplice pipeline v1.2 #
 
-HG38 reference, for old HG19 version, please go v1.1 branch
-
-Song Cao, Reyka Jayasinghe, Qingsong Gao, Mike Wendl
+HG38 reference. For old HG19 reference, please use v1.1 branch
 
 Pipeline for discovering splice-site creating mutations (SCMs) from RNA-Seq. It works on LSF job scheduler and can run multiple jobs in parallel.
  
@@ -82,4 +80,10 @@ File format for samples as following (table-delimited with sample id and cancer 
 	TCGA-02-2485    gbm
 
 	TCGA-02-2486    gbm
+
+# Developers # 
+
+Song Cao, Reyka Jayasinghe, Qingsong Gao, Mike Wendl
+
+Pipeline leading contact: scao@wustl.edu
 
