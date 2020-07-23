@@ -1,11 +1,11 @@
-# MiSplice pipeline #
+# MiSplice pipeline v1.2 #
 
 HG38 reference, for old HG19 version, please go v1.1 branch
 
 Song Cao, Reyka Jayasinghe, Qingsong Gao, Mike Wendl
 
-Pipeline for discovering splice-site creating mutations (SCMs) from RNA-Seq
-
+Pipeline for discovering splice-site creating mutations (SCMs) from RNA-Seq. It works on LSF job scheduler and can run multiple jobs in parallel.
+ 
 Please cite the following paper if you use MiSplice pipeline:
 
 Systematic Analysis of Splice-Site-Creating Mutations in Cancer
