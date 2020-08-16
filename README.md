@@ -30,7 +30,7 @@ perl misplice.pl --rdir run_folder --bed bed_file --ref ref_file --q q_name --ma
 
 bed file for HG19 reference can be downloaded from  https://drive.google.com/file/d/14vHI3G45c-xBzpgzs_I43orrKbNJyIVi/view?usp=sharing
 
-<ref_file> HG38 refernece file
+<ref_file> HG38 or HG19 refernece file
  
 <q_name> which bsub quenue for submitting job
 
