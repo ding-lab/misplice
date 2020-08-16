@@ -13,7 +13,7 @@ Cell Rep 2018 Apr 3;23(1):270-281
 
 ## Usage
 
-perl misplice.pl --rdir run_folder --bed bed_file --ref ref_file --q q_name --maf fmaf --bamlist fbam --step step_number
+perl misplice.pl --rdir run_folder --bed bed_file --ref ref_file --q q_name --maf f_maf --bamlist f_bam --step step_number
 
 <run_folder> = full path of the folder holding mutation annotation file (maf) file for all mutations (misplice.input.maf) and file for the sample list (currently named as Samples).
 
@@ -25,11 +25,11 @@ perl misplice.pl --rdir run_folder --bed bed_file --ref ref_file --q q_name --ma
 
 <step_number> run this pipeline step by step
 
-<fmaf> Somatic mutation file (in maf format), standard output from vcf2maf script
+<f_maf> Somatic mutation file (in maf format), standard output from vcf2maf script
 
 Example can be found from misplice.example.maf 
 
-<fbam> file for input bam list
+<f_bam> file for input bam list
 
 Example can be found from misplice.rnabam.tsv, which contains four columns (sample_name, cancer_type, rna_bam_path, and chr_status). 
 
