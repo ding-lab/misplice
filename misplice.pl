@@ -164,7 +164,7 @@ open(OUTS,">$f_s");
 foreach my $l (`cat $rcbam`) 
 {
 my @t=split("\t",$l); 
-print OUTS substr($t[0],0,12),"\t",$t[1],"\n"; 
+print OUTS $t[0],"\t",$t[1],"\n"; 
 }
 close OUTS; 
 

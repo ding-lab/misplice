@@ -31,7 +31,7 @@ my %bamhash;
 
 while(my $bamline=<$RNAbamlist>){
 	chomp $bamline;
-	my @baminfo=split(/ /,$bamline);
+	my @baminfo=split("\t",$bamline);
 	my $bsample=$baminfo[0];
 	my $sn=$bsample; 
 	#substr($bsample,0,15);

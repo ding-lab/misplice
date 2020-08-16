@@ -82,7 +82,7 @@ foreach my $l (`cat $f_in`)
 		my @temp=split("\t",$ltr);
 	#	if(length($temp[15])<15) { $temp[12].="-01"; }
 		my $sn=$temp[15];
-		$sn=~s/\_T//g;  
+		$sn=~s/\_T$//g;  
 		#print $sn,"\n";
 		my $chr=$temp[4]; 
 		my $pos=$temp[5];

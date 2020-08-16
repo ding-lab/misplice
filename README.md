@@ -4,12 +4,23 @@ Pipeline for discovering splice-site creating mutations (SCMs) from RNA-Seq. It 
 
 HG38 reference. For old HG19 reference, please use v1.1 branch
 
+
 ## Citation 
 
 Systematic Analysis of Splice-Site-Creating Mutations in Cancer
 
 Jayasinghe RG*, Cao S*, Gao Q, Wendl MC, Vo NS, Reynolds SM, Zhao Y, Climente-González H, Chai S, Wang F, Varghese R, Huang M, Liang W, Wyczalkowski MA, Sengupta S, Li Z, Payne SH, Fenyö D, Miner JH, Walter MJ, The Cancer Genome Atlas Research Network, Vincent B, Eyras E, Chen K, Shmulevich I, Chen F, Ding L,
 Cell Rep 2018 Apr 3;23(1):270-281 
+
+## Install the third-party software
+
+Basic Linux:
+
+sudo apt-get install -y samtools.
+
+With Conda environment:
+
+conda install -c bioconda samtools
 
 ## Usage
 
@@ -33,9 +44,10 @@ Example can be found from misplice.example.maf
 
 Example can be found from misplice.rnabam.tsv, which contains four columns (sample_name, cancer_type, rna_bam_path, and chr_status). 
 
-chr_status indicates whether the chr in the bam contains chr or not. If it has chr, type chr1 in the four column. Otherwise, type 1. 
+chr_status indicates whether the chr in the bam contains chr or not. If it has chr, type chr1 in the four column. Otherwise, type 1.
+ 
 
-Example can be found from 
+** Make sure the sample_name is consistent with name in the maf file **
 
 [1] Split mutation annotation file (MAF) into multiple files for processing
 
