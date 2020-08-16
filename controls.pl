@@ -61,7 +61,7 @@ while (<$MAF>){
     #if(length($line[12])<15) { $line[12].="-01"; }
     #my $sn=substr($line[12],0,12);
 	my $sn=$line[15];
-	$sn=~s/\_T//g; 
+	$sn=~s/\_T$//g; 
 	#my $sn=
     my $cancertype=$sn_2_ct{$sn};#cancertype
 	#my $id=$cancertype.$gene;
@@ -82,7 +82,7 @@ while(<$OGMAF>){
     chomp ($linest=$_);
     @ss=split(/\t/,$linest);
     $sample=$ss[15];
-	$sample=~s/\_T//g;
+	$sample=~s/\_T$//g;
 	my $shortsnmaf=$sample;
 #	my $shortsnmaf=$1 if $sample=~/(^TCGA-\w{2}-\w{4})/;
     $gene=$ss[0];

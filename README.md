@@ -34,8 +34,6 @@ perl misplice.pl --rdir run_folder --bed bed_file --ref ref_file --q q_name --ma
  
 <q_name> which bsub quenue for submitting job
 
-<step_number> run this pipeline step by step
-
 <f_maf> Somatic mutation file (in maf format), standard output from vcf2maf script
 
 Example can be found from misplice.example.maf 
@@ -48,6 +46,9 @@ chr_status indicates whether the chr in the bam contains chr or not. If it has c
  
 
 ** Make sure the sample_name is consistent with name in the maf file **
+
+
+<step_number> run this pipeline step by step
 
 [1] Split mutation annotation file (MAF) into multiple files for processing
 
