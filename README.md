@@ -1,9 +1,7 @@
-# MiSplice pipeline v1.2 #
+# MiSplice (Mutation-Induced SPLICE-site)  pipeline v1.2 #
 
-Pipeline for discovering splice-site creating mutations (SCMs) from RNA-Seq. It works on LSF job scheduler and can run multiple jobs in parallel. 
-
-HG38 reference. For old HG19 reference, please use v1.1 branch
-
+Pipeline for discovering splice-site creating mutations (SCMs) from RNA-Seq. It works on LSF job scheduler and can run multiple jobs in parallel.
+For other job submission system, please modify the script accordingly.  
 
 ## Citation 
 
@@ -29,6 +27,8 @@ perl misplice.pl --rdir run_folder --bed bed_file --ref ref_file --q q_name --ma
 <run_folder> = full path of the folder holding mutation annotation file (maf) file for all mutations (misplice.input.maf) and file for the sample list (currently named as Samples).
 
 <bed_file> bed file for HG38 refernece: please follow ./resource/GRCh38/work_log_gtf to generate it or download from https://drive.google.com/file/d/1M2yLLjxBwOjUOu-uIxwtUrD_DHTTpioJ/view?usp=sharing
+
+bed file for HG19 reference can be downloaded from  https://drive.google.com/file/d/14vHI3G45c-xBzpgzs_I43orrKbNJyIVi/view?usp=sharing
 
 <ref_file> HG38 refernece file
  
