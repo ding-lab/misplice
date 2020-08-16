@@ -1,1 +1,1 @@
-perl misplice.pl --rdir /gscmnt/gc2517/dinglab/scao/immunogenic_peptide/scm/UCEC/run013119 --bed ./resource/GRCh38/E95_bed_v3.tsv --ref /gscmnt/gc2518/dinglab/scao/tools/vep/Homo_sapiens.GRCh38.dna.primary_assembly.fa --q research-hpc --step 1
+perl misplice.pl --rdir /gscmnt/gc2517/dinglab/scao/immunogenic_peptide/scm/UCEC/run013119 --bed ./resource/GRCh38/E95_bed_v3.tsv --ref /gscmnt/gc2518/dinglab/scao/tools/vep/Homo_sapiens.GRCh38.dna.primary_assembly.fa --maf --bamlist --q research-hpc --step 1

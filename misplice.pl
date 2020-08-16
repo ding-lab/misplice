@@ -32,12 +32,16 @@ my $normal = "\e[0m";
 (my $usage = <<OUT) =~ s/\t+//g;
 This script will detect mutation-induced splice events from cancer patients. 
 Pipeline version: $version
-$yellow     Usage: perl $0 --rdir --step --bed --ref --q $normal
+$yellow     Usage: perl $0 --rdir --step --maf --bamlist  --bed --ref --q $normal
 
 <run_folder> = full path of the folder holding files for this sequence run
 
-<step_number> run this pipeline step by step. (running steps [1-3] if step number is 11 and running steps [4-9] if step number is 12)
+<step> run this pipeline step by step. 
 
+<maf> Somatic mutation file (in maf format)
+
+<bamlist> file for input bam list
+ 
 <bed> bed file for ensembl db 
 
 <ref> human reference file 
@@ -67,11 +71,15 @@ my $q_name="";
 my $help="";
 my $f_bed="";
 my $f_ref="";
+my $fmaf;
+my $rcbam;
 
 my $status = &GetOptions (
       "step=i" => \$step_number,
       "q=s" => \$q_name,
       "help" => \$help,
+      "maf=s" => \$fmaf,
+      "bamlist=s" => \$rcbam, 
       "rdir=s" => \$run_dir,
       "bed=s" => \$f_bed,
       "ref=s"  => \$f_ref
@@ -83,7 +91,7 @@ if ($run_dir =~/(.+)\/$/) {
 
 #die $usage unless (($step_number >=0)&&($step_number <= 9) || ($step_number==11) || ($step_number==12));
 
-if ($help || $run_dir eq "" || $f_bed eq "" || $f_ref eq "" || $step_number<0) {
+if ($help || $run_dir eq "" || $f_bed eq "" || $fmaf eq "" || $rcbam eq "" || $f_ref eq "" || $step_number<0) {
       print $usage;
       exit;
    }
@@ -125,9 +133,9 @@ my $script_dir=$run_script_path;
 print $script_dir,"\n";
 
 #my $script_dir="/gscuser/scao/gc2524/dinglab/splice/git/MiSplice_MMY";
-my $fmaf=$run_dir."/misplice.input.maf";
+#my $fmaf=$run_dir."/misplice.input.maf";
 #/gscuser/rjayasin/projects/new_WG/Splice_project/dat/MAF/tcga_filtered_ucsc_rc.MAFFINAL.NEW";
-my $rcbam=$run_dir."/rna_bam_path.tsv";
+#my $rcbam=$run_dir."/rna_bam_path.tsv";
 #my $rcbam=$script_dir."/resource/RNA_bampaths_021417_chr.txt";
 
 #############
@@ -146,44 +154,53 @@ my $sample_full_path = "";
 my $sample_name = "";
 $current_job_file="";
 
-if($step_number==11)
- 	{
-	&bsub_maf_split(); 
-	&bsub_job_array_ns();
-	&bsub_control();
-	} elsif($step_number==12)
-	{
-	&bsub_array_control();
-	&bsub_support_reads_table();
-	&bsub_splice_score();
-	&bsub_novels_split();
-	&bsub_job_array_rc();
-	&bsub_rc_hla_filter();	
-	} elsif ($step_number == 1) 
+## generate sample list file ##
+my $f_s=$run_dir."/Samples";
+
+open(OUTS,">$f_s"); 
+
+## Sample short name for TCGA ##/
+
+foreach my $l (`cat $rcbam`) 
+{
+my @t=split("\t",$l); 
+print OUTS substr($t[0],0,12),"\t",$t[1],"\n"; 
+}
+close OUTS; 
+
+if($step_number == 1) 
 	{
      &bsub_maf_split(1);
-    }elsif ($step_number == 2)
+    }
+if ($step_number == 2)
     {
      &bsub_job_array_ns(1);
-    }elsif ($step_number == 3)
+    }
+if ($step_number == 3)
     {
      &bsub_control(1);
-    }elsif ($step_number == 4)
+    }
+if ($step_number == 4)
     {
      &bsub_array_control(1);
-    }elsif ($step_number == 5)
+    }
+if ($step_number == 5)
     {
      &bsub_support_reads_table(1);
-    }elsif ($step_number == 6)
+    }
+if ($step_number == 6)
     {
      &bsub_splice_score(1);
-    } elsif ($step_number == 7)
+    } 
+if ($step_number == 7)
     {
      &bsub_novels_split(1);
-    }elsif ($step_number == 8)
+    }
+if ($step_number == 8)
     {
      &bsub_job_array_rc(1);
-    }elsif ($step_number == 9)
+    }
+if ($step_number == 9)
     {
      &bsub_rc_hla_filter(1);
 	}
@@ -269,7 +286,7 @@ sub bsub_job_array_ns {
 	#print ANS 'if [ ! -f $ANS_OUT]',"\n";
     print ANS "if [ ! -f \${ANS_OUT} ]\n";
 	print ANS "then\n";
-	print ANS "     ".$run_script_path."in_silico_ns.pl \${ANS_IN} $f_bed \${ANS_OUT}"."\n";
+	print ANS "     ".$run_script_path."in_silico_ns.pl \${ANS_IN} $rcbam $f_bed \${ANS_OUT}"."\n";
 	print ANS "fi\n";
 	close ANS;
 
@@ -394,7 +411,7 @@ sub bsub_array_control {
     #print CONTRS "#BSUB -q ding-lab\n"; 
 	print CONTRS "CONT_OUT=".$run_dir."/Controls/novel.junctions.filtered.controls.".'${LSB_JOBINDEX}'.".v2.filtered.5\n";
     print CONTRS "CONT_IN=".$run_dir."/Controls/novel.junctions.filtered.controls.".'${LSB_JOBINDEX}'."\n";    
-    print CONTRS "     ".$run_script_path."in_silico_ns.control.pl \${CONT_IN} $f_bed \${CONT_OUT}\n";
+    print CONTRS "     ".$run_script_path."in_silico_ns.control.pl \${CONT_IN} $rcbam $f_bed \${CONT_OUT}\n";
     close CONTRS;
 #    $bsub_com = "bsub < $job_files_dir/$current_job_file\n";
 #    system ($bsub_com);

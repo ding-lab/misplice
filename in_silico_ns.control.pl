@@ -12,27 +12,27 @@
 use strict;
 use warnings;
 (my $usage = <<OUT) =~ s/\t+//g;
-perl filter_fp_ns.pl f_in f_bed f_out
+perl in_silico_ns.control f_in f_bam_list f_bed f_out
 OUT
 
-die $usage unless @ARGV == 3;
-my ($f_in, $f_bed, $f_out) = @ARGV;
+die $usage unless @ARGV == 4;
+my ($f_in, $f_bam_list, $f_bed, $f_out) = @ARGV;
 
 #my $f_bam_list="/gscuser/scao/data_source/rnaseq/bam_path_02_10_2017.tsv"; 
 #my $f_bam_list="/gscuser/scao/data_source/rnaseq/bam_path_03_04_2017.tsv";
 #my $f_bam_list="/gscmnt/gc2524/dinglab/splice/non_coding/gcloud/rna_bam_path.v1.tsv";
 #my $f_bam_list="/gscmnt/gc2521/dinglab/scao/mmy/scm/worklog/rna_bam_path.v1.tsv";
 
-my @tempdir=split(/\//,$f_in); 
+#my @tempdir=split(/\//,$f_in); 
 
-my $f_bam_list=$tempdir[0]; 
+#my $f_bam_list=$tempdir[0]; 
 
-for(my $i=1;$i<scalar @tempdir-2;$i++) 
-{
-	$f_bam_list=$f_bam_list."/".$tempdir[$i]; 
-}
+#for(my $i=1;$i<scalar @tempdir-2;$i++) 
+#{
+#	$f_bam_list=$f_bam_list."/".$tempdir[$i]; 
+#}
 
-$f_bam_list=$f_bam_list."/rna_bam_path.v1.tsv";
+#$f_bam_list=$f_bam_list."/rna_bam_path.v1.tsv";
 
 #my $f_bed="/gscuser/scao/gc2524/dinglab/bed_maker/E75_bed_v3.sort.tsv";
 
@@ -69,11 +69,11 @@ foreach my $l (`cat $f_bam_list`)
 	{
 		my $ltr=$l; 
 		chomp($ltr); 
-	 	my @temp=split(" ",$ltr); 
+	 	my @temp=split("\t",$ltr); 
 		#print $temp[2],"\t",$temp[4],"\n";	
 		#my $sn=substr($temp[0],0,12); 
 		my $sn=$temp[0];
-		if($temp[4]=~/chr/) { $bampathchr{$sn}=$temp[2]; }
+		if($temp[3]=~/chr/) { $bampathchr{$sn}=$temp[2]; }
 		else { $bampath{$sn}=$temp[2]; }
 	}
 

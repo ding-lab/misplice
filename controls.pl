@@ -14,7 +14,7 @@ further analysis, control samples will be added to the last column of this file.
 	<Output File> - Name of the output file generated with mutation info and control information.
 	<Restricted Sample List> - A list of samples that you want to restrict your control list to.
 
-#EXAMPLE:perl controls.v2..pl all_the_mutations.maf tcga_maf_of_interest.maf tcga_control_stringent.maf samples_list
+#EXAMPLE:perl controls.pl all_the_mutations.maf tcga_maf_of_interest.maf tcga_control_stringent.maf samples_list
 
 USAGE
 die $usage unless @ARGV==4;
