@@ -1,4 +1,4 @@
-# MiSplice (Mutation-Induced SPLICE-site)  pipeline v1.2 #
+# MiSplice (Mutation-Induced SPLICE sites)  pipeline v1.2 #
 
 Pipeline for discovering splice-site creating mutations (SCMs) from RNA-Seq. It works on LSF job scheduler and can run multiple jobs in parallel.
 For other job submission system, please modify the script accordingly.  
