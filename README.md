@@ -5,9 +5,9 @@ For other job submission system, please modify the script accordingly.
 
 ## Citation 
 
-Systematic Analysis of Splice-Site-Creating Mutations in Cancer
+1. Cao S, Zhou DC, Oh C, Jayasinghe RG, Zhao Y, Yoon CJ, Wyczalkowski MA, Bailey MH, Tsou T, Gao Q, Malone A, Reynolds S, Shmulevich I, Wendl MC, Chen F, Ding L. Discovery of Driver Non-Coding Splice-Site-Creating Mutations in Cancer. Nat Commun 2020 Nov 4;11(1):5573
 
-Jayasinghe RG*, Cao S*, Gao Q, Wendl MC, Vo NS, Reynolds SM, Zhao Y, Climente-González H, Chai S, Wang F, Varghese R, Huang M, Liang W, Wyczalkowski MA, Sengupta S, Li Z, Payne SH, Fenyö D, Miner JH, Walter MJ, The Cancer Genome Atlas Research Network, Vincent B, Eyras E, Chen K, Shmulevich I, Chen F, Ding L,
+2. Jayasinghe RG*, Cao S*, Gao Q, Wendl MC, Vo NS, Reynolds SM, Zhao Y, Climente-González H, Chai S, Wang F, Varghese R, Huang M, Liang W, Wyczalkowski MA, Sengupta S, Li Z, Payne SH, Fenyö D, Miner JH, Walter MJ, The Cancer Genome Atlas Research Network, Vincent B, Eyras E, Chen K, Shmulevich I, Chen F, Ding L, Systematic Analysis of Splice-Site-Creating Mutations in Cancer,
 Cell Rep 2018 Apr 3;23(1):270-281 
 
 ## Install the third-party software
