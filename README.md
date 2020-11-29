@@ -73,7 +73,7 @@ chr_status indicates whether the chr in the bam contains chr or not. If it has c
 
 ## Developers  
 
-Song Cao, Reyka Jayasinghe, Qingsong Gao, Mike Wendl
+Song Cao, Reyka Jayasinghe, Qingsong Gao, Mike Wendl, Li Ding
 
 Pipeline leading contact: scao@wustl.edu
 
