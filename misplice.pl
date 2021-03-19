@@ -32,7 +32,11 @@ my $normal = "\e[0m";
 (my $usage = <<OUT) =~ s/\t+//g;
 This script will detect mutation-induced splice events from cancer patients. 
 Pipeline version: $version
+<<<<<<< HEAD
+$yellow     Usage: perl $0 --rdir --step --maf --bamlist  --bed --n --ref --q $normal
+=======
 $yellow     Usage: perl $0 --rdir --step --maf --bamlist  --bed --ref --q $normal
+>>>>>>> a4797fe7058b4858ca2e6705bcb9acbe31efb4c3
 
 <run_folder> = full path of the folder holding files for this sequence run
 
@@ -45,6 +49,8 @@ $yellow     Usage: perl $0 --rdir --step --maf --bamlist  --bed --ref --q $norma
 <bed> bed file for ensembl db 
 
 <ref> human reference file 
+
+<n> number of split files
 
 <q> research-hpc, long, or ding-lab
 $red     	[1] Split maf
@@ -71,11 +77,16 @@ my $q_name="";
 my $help="";
 my $f_bed="";
 my $f_ref="";
+<<<<<<< HEAD
+my $n_file=100;
+=======
+>>>>>>> a4797fe7058b4858ca2e6705bcb9acbe31efb4c3
 my $fmaf;
 my $rcbam;
 
 my $status = &GetOptions (
       "step=i" => \$step_number,
+	  "n=i" => \$n_file,  
       "q=s" => \$q_name,
       "help" => \$help,
       "maf=s" => \$fmaf,
@@ -101,6 +112,10 @@ if($q_name eq "")
     $q_name="long";
 }
 
+my $maf_sl=$run_dir."/misplice.input.maf\n";
+
+`ln -s $fmaf $maf_sl`; 
+
 my $email = "scao\@wustl\.edu";
 # everything else below should be automated
 my $HOME = $ENV{HOME};
@@ -120,7 +135,7 @@ if (! -d $HOME1."/LSF_DIR_MISPLICE") {
     `mkdir $HOME1"/LSF_DIR_MISPLICE"`;
 }
 
-my $file_number_of_spliting = 200;
+my $file_number_of_spliting = $n_file;
 
 my $lsf_file_dir = $HOME1."/LSF_DIR_MISPLICE";
 
