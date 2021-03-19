@@ -22,7 +22,7 @@ conda install -c bioconda samtools
 
 ## Usage
 
-perl misplice.pl --rdir run_folder --bed bed_file --ref ref_file --q q_name --maf f_maf --bamlist f_bam --step step_number
+perl misplice.pl --rdir run_folder --bed bed_file --ref ref_file --q q_name --maf f_maf --bamlist f_bam --n n_file --step step_number
 
 <run_folder> = full path of the folder holding mutation annotation file (maf) file for all mutations (misplice.input.maf) and file for the sample list (currently named as Samples).
 
@@ -39,6 +39,8 @@ bed file for HG19 reference can be downloaded from  https://drive.google.com/fil
 Example can be found from misplice.example.maf 
 
 <f_bam> file for input bam list
+
+<n_file> number of split files for maf file: Default 100. 
 
 Example can be found from misplice.rnabam.tsv, which contains four columns (sample_name, cancer_type, rna_bam_path, and chr_status). 
 
