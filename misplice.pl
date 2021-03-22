@@ -17,7 +17,6 @@ use strict;
 use warnings;
 use Getopt::Long;
 #use POSIX;
-
 my $version = 1.2;
 #color code
 my $red = "\e[31m";
@@ -32,11 +31,10 @@ my $normal = "\e[0m";
 (my $usage = <<OUT) =~ s/\t+//g;
 This script will detect mutation-induced splice events from cancer patients. 
 Pipeline version: $version
-<<<<<<< HEAD
-$yellow     Usage: perl $0 --rdir --step --maf --bamlist  --bed --n --ref --q $normal
-=======
-$yellow     Usage: perl $0 --rdir --step --maf --bamlist  --bed --ref --q $normal
->>>>>>> a4797fe7058b4858ca2e6705bcb9acbe31efb4c3
+
+$yellow    
+
+Usage: perl $0 --rdir --step --maf --bamlist  --bed --n --ref --q $normal
 
 <run_folder> = full path of the folder holding files for this sequence run
 
@@ -77,10 +75,7 @@ my $q_name="";
 my $help="";
 my $f_bed="";
 my $f_ref="";
-<<<<<<< HEAD
 my $n_file=100;
-=======
->>>>>>> a4797fe7058b4858ca2e6705bcb9acbe31efb4c3
 my $fmaf;
 my $rcbam;
 
@@ -114,7 +109,27 @@ if($q_name eq "")
 
 my $maf_sl=$run_dir."/misplice.input.maf\n";
 
-`ln -s $fmaf $maf_sl`; 
+### remove chr in chromosome identification ##
+open(OUT_m,">$maf_sl");
+
+foreach my $l (`cat $fmaf`) 
+{
+my $ltr=$l; 
+chomp($ltr); 
+if($ltr=~/^Hugo/) { print OUT_m $ltr,"\n"; } 
+else { 
+my @t=split("\t",$ltr);
+$t[4]=~s/chr//g; 
+print OUT_m $t[0]; 
+for(my $i=1;$i<scalar @t; $i++) 
+{
+ print OUT_m "\t",$t[$i]; 
+}
+print OUT_m "\n"; 
+}
+}
+
+close OUT_m; 
 
 my $email = "scao\@wustl\.edu";
 # everything else below should be automated
@@ -299,10 +314,10 @@ sub bsub_job_array_ns {
 	print ANS "ANS_OUT=".$run_dir."/NS_CASE/misplice.input.maf.".'${LSB_JOBINDEX}'.".v2.filtered.5\n";
 	print ANS "ANS_IN=".$run_dir."/NS_CASE/misplice.input.maf.".'${LSB_JOBINDEX}'."\n";
 	#print ANS 'if [ ! -f $ANS_OUT]',"\n";
-    print ANS "if [ ! -f \${ANS_OUT} ]\n";
-	print ANS "then\n";
+    #print ANS "if [ ! -f \${ANS_OUT} ]\n";
+	#print ANS "then\n";
 	print ANS "     ".$run_script_path."in_silico_ns.pl \${ANS_IN} $rcbam $f_bed \${ANS_OUT}"."\n";
-	print ANS "fi\n";
+	#print ANS "fi\n";
 	close ANS;
 
  	my $sh_file=$job_files_dir."/".$current_job_file;

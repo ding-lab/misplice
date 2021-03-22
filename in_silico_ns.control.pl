@@ -92,7 +92,8 @@ foreach my $l (`cat $f_in`)
 		my $sn=$tempn[$i]; 
 		#print $sn,"\n";
 		#<STDIN>; 	
-		my $chr=$temp[4]; 
+		my $chr=$temp[4];
+		$chr=~s/chr//g;  
 		my $pos=$temp[5];
 		my $ref=$temp[10];
 		my $var=$temp[12]; 

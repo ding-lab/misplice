@@ -84,7 +84,8 @@ foreach my $l (`cat $f_in`)
 		my $sn=$temp[15];
 		$sn=~s/\_T$//g;  
 		#print $sn,"\n";
-		my $chr=$temp[4]; 
+		my $chr=$temp[4];
+		$chr=~s/chr//g;  
 		my $pos=$temp[5];
 		my $ref=$temp[10];
 		my $var=$temp[12];

@@ -40,13 +40,14 @@ Example can be found from misplice.example.maf
 
 <f_bam> file for input bam list
 
+Example can be found from misplice.rnabam.tsv. Make sure the sample name in bam list file is matching the tumor name in misplice.example.maf file.
+
 <n_file> number of split files for maf file: Default 100. 
 
 Example can be found from misplice.rnabam.tsv, which contains four columns (sample_name, cancer_type, rna_bam_path, and chr_status). 
 
 chr_status indicates whether the chr in the bam contains chr or not. If it has chr, type chr1 in the four column. Otherwise, type 1.
  
-
 ** Make sure the sample_name is consistent with name in the maf file **
 
 
