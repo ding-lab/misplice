@@ -107,7 +107,7 @@ if($q_name eq "")
     $q_name="long";
 }
 
-my $maf_sl=$run_dir."/misplice.input.maf\n";
+my $maf_sl=$run_dir."/misplice.input.maf";
 
 ### remove chr in chromosome identification ##
 open(OUT_m,">$maf_sl");
@@ -373,7 +373,7 @@ sub bsub_control {
 	print CONTR "mkdir \${DCONTR}\n"; 
 	print CONTR "fi\n";
 	print CONTR "cat $run_dir/NS_CASE/*.filtered.5 > \${FJ}\n";
-	print CONTR "     ".$run_script_path."controls.pl $fmaf \${FJ} \${FOUT} \${FS}\n";
+	print CONTR "     ".$run_script_path."controls.pl $maf_sl \${FJ} \${FOUT} \${FS}\n";
 	close CONTR; 
     my $sh_file=$job_files_dir."/".$current_job_file;
     
@@ -495,7 +495,7 @@ sub bsub_support_reads_table{
 	print EXPF "OUTF_K=".$run_dir."/case.control.distributionmethod.withkey\n";
 	print EXPF "SUFFIX="."v2.filtered.5\n";
 	print EXPF "     ".$run_script_path."case_control_rc_5.pl \${FS} $f_contr \${SUFFIX} $NUM_CONTR > \${OUTF}\n";
-	print EXPF "cat \${OUTF} | awk \'{print substr(\$3,1,12)\"_\"\$5\"\t\"\$0}\' > \${OUTF_K}\n";
+	print EXPF "cat \${OUTF} | awk \'{print \$3\"_\"\$5\"\t\"\$0}\' > \${OUTF_K}\n";
     close EXPF;
 
     my $sh_file=$job_files_dir."/".$current_job_file;
