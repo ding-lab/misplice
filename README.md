@@ -48,7 +48,7 @@ Example can be found from misplice.rnabam.tsv, which contains four columns (samp
 
 chr_status indicates whether the chr in the bam contains chr or not. If it has chr, type chr1 in the four column. Otherwise, type 1.
  
-** Make sure the sample_name is consistent with tumor name in the maf file: tumor name in the maf file with an additional suffix _T is fine if variants are called by somaticwrapper. It will be removed by the pipeline. **
+** Make sure the sample_name is consistent with tumor name in the maf file: tumor name in the maf file with an additional suffix _T is fine if variants are called by somaticwrapper. It will be automatically removed by the pipeline. **
 
 
 <step_number> run this pipeline step by step
@@ -70,9 +70,6 @@ chr_status indicates whether the chr in the bam contains chr or not. If it has c
 [8] Do bam readcounts
 
 [9] Run rc, hla and expression filtering 
-
- 
-
 
 ## Developers  
 
