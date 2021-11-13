@@ -49,13 +49,13 @@ while(<IN>)
 	next if $_ =~m/^#/;
 	my @l = split(/\t/,);
 #	next if $l[2] ne "gene";
-#	my @m = split(/\;/, $l[8]);
+	my @m = split(/\:/, $l[3]);
 #	for(my $i=0;$i<scalar @m;$i++) 
 #	{
 #	 if($m[$i]=~/gene_name/)
 #	{
 #	my @m2=split(/\"/,$m[$i]);	
-	$strand{uc($l[0])} = $l[2];
+	$strand{uc($m[0])} = $m[2];
 #	}
 #	}
 }
@@ -296,6 +296,7 @@ foreach my $input (glob("$dir/$info"))
 			my $nxt = <DATA>;
 			my @m = split(/\t/, $nxt);
 			my @number=($m[5]=~m/(\d+)\w/g);
+### l2 mutation position, 21M6034N54M, number[0]-> 21; number[1]->6034 
 			my $d1 = abs($m[3] + $number[0]- $l[2]);
 			my $d2 = abs($m[3] + $number[0] + $number[1] - $l[2]);
 			my $jd = join("\t", $l[1], $l[2]);

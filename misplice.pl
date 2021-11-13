@@ -715,15 +715,21 @@ sub bsub_rc_hla_filter{
 	print RCHLA "RCTC=".$run_dir."/novel.splice.scores.rc.key.combined\n";
 	print RCHLA "HLA=".$run_dir."/novel.splice.scores.rc.key.combined.noHLA\n";
 	print RCHLA "HLAVAF=".$run_dir."/novel.splice.scores.rc.key.combined.noHLA.vaf\n";
+	print RCHLA "HLAVAF2=".$run_dir."/novel.splice.scores.rc.key.combined.noHLA.not.passed.vaf\n";
 	print RCHLA "HLAVAFH=".$run_dir."/novel.splice.scores.rc.key.combined.noHLA.vaf.highexp\n";
 	print RCHLA "EXPK=".$run_dir."/case.control.distributionmethod.withkey\n";
 	print RCHLA "MAFK=".$run_dir."/maf.key\n";
 	print RCHLA "FINAL=".$run_dir."/novel.splice.scores.rc.key.combined.vaf.noHLA.highexp.maf\n";
 	print RCHLA "cat $run_dir/RC/novel.splice.scores.*.rc > \${RCT}\n";
+    ## add key to RCT file 
 	print RCHLA "awk \'{print \$1\"_\"\$2\"_\"\$3\"_\"\$4\"_\"\$5\"\\t\"\$0}\' \${RCT} > \${RCTK}\n";
 	print RCHLA "     ".$run_script_path."combine.pl \${RCTK} \${EXPK} 0 0 > \${RCTC}\n";
 	print RCHLA "grep -v \'HLA-\' \${RCTC} > \${HLA}\n";
-	print RCHLA "awk -F\' \' \'{ tmp=(\$20/(\$13))*100; print \$1\"\\t\"tmp\"\\t\"\$0}\' \${HLA}|awk \'\$2>5\' > \${HLAVAF}\n"; 
+    ## $21, reading support novel junction, $14 total reads,junction VAF >0.05, $2>5, filtering ##
+    print RCHLA "     ".$run_script_path."jaf_filter.pl \${HLA} \${HLAVAF} \${HLAVAF2}\n";
+
+	#print RCHLA "awk -F\' \' \'{ tmp=(\$21/(\$14))*100; print \$1\"\\t\"tmp\"\\t\"\$0}\' \${HLA}|awk \'\$2>5\' > \${HLAVAF}\n"; 
+
 	print RCHLA "grep high_expression \${HLAVAF} > \${HLAVAFH}\n";
     print RCHLA "cat $run_dir/NS_CASE/misplice.input.maf.*.filtered.5 |awk -F\'\\t\' \'{  print \$16\"_\"\$5\"_\"\$6\"_\"\$11\"_\"\$13\"\\t\"\$0}' > \${MAFK}\n";
 #	print RCHLA "cat $run_dir/NS_CASE/misplice.input.maf.*.filtered.5 |awk -F\'\\t\' \'{print substr(\$16,1,12)\"_\"\$5\"_\"\$6\"_\"\$11\"_\"\$13\"\\t\"\$0}' > \${MAFK}\n";	
