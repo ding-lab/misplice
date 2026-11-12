@@ -51,19 +51,19 @@ Usage: perl $0 --rdir --step --maf --bamlist  --bed --n --ref --q $normal
 <n> number of split files
 
 <q> research-hpc, long, or ding-lab
-$red     	[1] Split maf
-			[2] Run discovery for splice creating events
+$red      [1] Split maf
+$red      [2] Run discovery for splice creating events
 
-$gray 		[3] Generate control maf
-			[4] Calculate # of supporting reads for control samples
+$gray      [3] Generate control maf
+$gray      [4] Calculate # of supporting reads for control samples
 
-$green 		[5] Generate table for # of supporting reads in case and control 
-		
-$purple 	[6] Calculate the splice score 
+$green      [5] Generate table for # of supporting reads in case and control
 
-$cyan 		[7] Split novel sites for bam readcounts 
-			[8] Do bam readcounts
-			[9] Run rc, hla and expression filtering
+$purple      [6] Calculate the splice score
+
+$cyan      [7] Split novel sites for bam readcounts
+$cyan      [8] Do bam readcounts
+$cyan      [9] Run rc, hla and expression filtering
 $normal
 OUT
 
